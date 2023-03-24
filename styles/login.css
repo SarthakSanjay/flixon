@@ -4,6 +4,7 @@
     padding: 0;
     /* box-sizing: border-box; */
     font-family: 'Poppins', sans-serif;
+    scroll-behavior: smooth;
 }
 :root{
     --light-text: white;
@@ -12,7 +13,6 @@
 }
 h1{
     font-size: 40px;
-    
 }
 
 h2, h3, h4, h5, h6{
@@ -27,6 +27,7 @@ h2, h3, h4, h5, h6{
 .navbar{
     display: flex;
     height: 15vh;
+    width: 100vw;
     align-items: center;
     justify-content: space-between;
 }
@@ -91,6 +92,52 @@ h2, h3, h4, h5, h6{
 
 
 
-@media only screen and (max-width:375px){
+@media only screen and (max-width:400px){
+    #logo{
+        margin: 0px 14px;
+        font-size: 40px;
+    }
+    /* signin button */
+    #signin{
+        margin: 0px 10px;
+        padding: 0px 15px;
+        font-size: 20px;
+        
+    }
+   .inner-hero{
+    margin: 5vh 5vw;
+    height: 70vh;
+    width: 90vw;
+    border: 1px solid red;
+    text-align: center;
+   }
+    .inner-hero h1{
+        font-size: 30px;
+        text-align: center;
+    }
+    .inner-hero h2{
+        font-size: 20px;
+    }
+    .email h3{
+        margin: 10px 0px;
+        font-size: 18px;
+    }
+    .inner-email{
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+    }
+    .inner-email input{
+        width: 95%;
+        height: 50px;
+        margin: 0;
+        padding: 10px;
+        
+    }
+    .inner-email input::placeholder{
+        width: 100%;
+        padding-left: 10px;
+        color: white;
+    }
     
 }
