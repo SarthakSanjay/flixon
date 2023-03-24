@@ -11,6 +11,24 @@
     --dark-text: #252525;
     --button-color: blueviolet;
 }
+::-webkit-scrollbar{
+    width: 10px;
+    background-color: rgba(134, 53, 211, 0.587);
+}
+::-webkit-scrollbar-thumb{
+    background-color: var(--button-color);
+}
+body{
+    overflow-x: hidden;
+}
+hr{
+    color: #312f2f;
+    height: 4px;
+    background-color: #312f2f;
+    /* border: 1px solid red; */
+    border: none;
+    width: 100vw;
+}
 h1{
     font-size: 40px;
     color: var(--light-text);
@@ -71,6 +89,7 @@ h2, h3, h4, h5, h6{
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    color: #000;
 }
 .inner-hero h1{
     font-size: 60px;
@@ -108,7 +127,42 @@ h2, h3, h4, h5, h6{
     border: none;
 }
 
-
+.features{
+    height: 80vh;
+    width: 100vw;
+    background-color: black;
+    /* border: 1px solid red; */
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    text-align: left;
+}
+.features img{
+    width: 500px;
+}
+.features div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* border: 1px solid red; */
+    /* margin-left: 30px; */
+}
+.features h1 , p{
+    width: 500px;
+    color: var(--light-text);
+}
+.features h1{
+    font-size: 60px;
+}
+.features p{
+    font-size: 25px;
+}
+.faqs{
+    background-color: black;
+    text-align: center;
+    width: 100vw;
+}
 
 @media only screen and (max-width:400px){
     .navbar{width: 95vw;
