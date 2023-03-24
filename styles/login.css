@@ -1,0 +1,96 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&family=Rubik+Iso&family=Titan+One&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    /* box-sizing: border-box; */
+    font-family: 'Poppins', sans-serif;
+}
+:root{
+    --light-text: white;
+    --dark-text: #252525;
+    --button-color: blueviolet;
+}
+h1{
+    font-size: 40px;
+    
+}
+
+h2, h3, h4, h5, h6{
+   font-size: 25px; 
+}
+/* section 1 */
+.hero{
+    height: 100vh;
+    width: 100vw;
+}
+
+.navbar{
+    display: flex;
+    height: 15vh;
+    align-items: center;
+    justify-content: space-between;
+}
+#logo{
+    margin: 0px 140px;
+    font-size: 60px;
+}
+/* signin button */
+#signin{
+    margin: 0px 100px;
+    padding: 0px 15px;
+    background-color: var(--button-color);
+    color: var(--light-text);
+    border-radius: 5px;
+    outline: none;
+    border: none;
+}
+
+.inner-hero{
+    height: 85vh;
+    width: 100vw;
+    background-color: gray;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.inner-hero h1{
+    font-size: 60px;
+}
+.email{
+    height: 200px;
+}
+.email h3{
+    margin: 50px 0px;
+}
+
+
+.inner-email{
+    display: flex;
+    justify-content: center;
+}
+.inner-email input{
+    width: 30vw;
+    height: 55px;
+    margin: 0 10px;
+    padding-left: 15px;
+    color: var(--light-text);
+    background-color: #25252548;
+    outline: none;
+    border: none;
+}
+.inner-email button{
+    font-size: 25px;
+    padding: 5px;
+    background-color: var(--button-color);
+    color: var(--light-text);
+    border-radius: 5px;
+    outline: none;
+    border: none;
+}
+
+
+
+@media only screen and (max-width:375px){
+    
+}
