@@ -253,5 +253,21 @@ h2, h3, h4, h5, h6{
         padding-left: 10px;
         color: white;
     }
+    .features{
+        flex-direction: column;
+        width: 100vw;
+        height: 100vh;
+    }
+    .features div{
+        width: 100%;
+
+    }
+    .features img{
+        width: 100%;
+
+    }
+    .features h1 , p{
+        width: 90vw;
+    }
     
 }
