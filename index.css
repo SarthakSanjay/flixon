@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&family=Rubik+Iso&family=Titan+One&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    color: white;
+}
+
+.sidebar{
+    height: 100vh;
+    width: 20vw;
+    background-color: #252525;
+    position: absolute;
+    left: -20vw;
+    transition: all 1s;
+
+}
+.hero{
+    height: 100vh;
+    width: 100vw;
+    
+}
+.notch{
+    height: 50px;
+    width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 40px;
+    background-color: #252525;
+}
+.navbar{
+    display: grid;
+    grid-template-columns: 50px 1fr;
+}
+#nav-items{
+    width: 100%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.nav-item{
+    margin: 0px 20px;
+}

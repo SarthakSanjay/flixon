@@ -12,7 +12,7 @@
     --button-color: blueviolet;
 }
 ::-webkit-scrollbar{
-    width: 10px;
+    width: 8px;
     background-color: rgba(134, 53, 211, 0.587);
 }
 ::-webkit-scrollbar-thumb{
@@ -119,6 +119,7 @@ h2, h3, h4, h5, h6{
 }
 .email h3{
     margin: 50px 0px;
+    text-align: center;
 }
 
 

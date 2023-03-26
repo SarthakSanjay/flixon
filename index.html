@@ -19,12 +19,13 @@
         <div class="inner-hero">
             <h1>Unlimited movies, TV shows and more.</h1>
             <h2>Watch anywhere. Cancel anytime.</h2>
-            <form class="email" action="home.html" > //firebase not allows method
+            <form class="email"  >
+                 <!-- //firebase not allows method -->
                 <h3>Ready to watch? Enter your email to create or restart your membership.</h3>
                 <div class="inner-email">
-                    <input id="email" type="email" placeholder="Email address">
-                    <input id="password" type="password" placeholder="Email password">
-                    <button id="register" type="submit">Get Started></button>
+                    <input id="email" type="email" placeholder="Email address" required>
+                    <input id="password" type="password" placeholder="Email password" required>
+                    <button id="register">Get Started></button>
                 </div>
             </form>
         </div>
@@ -85,7 +86,7 @@
             <li>contact us</li>
         </ul>
     </section>
-    <script src="index.js" ></script>
+    <script src="index.js" type="module" ></script>
 </body>
 </body>
 </html>

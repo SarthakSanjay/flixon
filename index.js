@@ -27,13 +27,34 @@ const auth = getAuth();
   document.getElementById("register").addEventListener("click" , function(){
     let email = document.getElementById("email").value
     let password = document.getElementById("password").value
+
+    function isValidEmail(email) {
+      // Regular expression for email validation
+      const emailRegex = /\S+@\S+\.\S+/;
+      return emailRegex.test(email);
+    }
+    
+    // Usage
+  //   const email = 'example@example.com';
+    if (isValidEmail(email)) {
+      // Email is valid
+      document.getElementById("email").style.border = "1px solid green"
+      console.log("valid")
+  } else {
+      // Email is invalid
+      document.getElementById("email").style.outline = "red"
+      console.log("invalid email")
+    }
+
+
+
     createUserWithEmailAndPassword(auth, email, password)
   .then((userCredential) => {
     // Signed in 
     const user = userCredential.user;
     console.log(user)
     // Redirect to home page
-
+    window.location.href = "home.html";
     alert("you are now registered")
     // ...
   })
@@ -45,3 +66,6 @@ const auth = getAuth();
     // ..
   });
   })
+
+
+  
