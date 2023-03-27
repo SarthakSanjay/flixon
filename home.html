@@ -8,17 +8,32 @@
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
-  <section id="sidebar" class="sidebar"></section>
+  <section id="sidebar" class="open">
+   <div class="inner-sidebar"></div>
+   <div id="notch">></div>
+    
+  </section>
   <section class="hero">
     <div class="navbar">
-        <div id="btn" class="notch">+</div>
+        <h1>FLIXON</h1>
         <div id="nav-items">
             <span class="nav-item">Movies</span>
             <span class="nav-item">Series</span>
             <span class="nav-item">Tv Shows</span>
         </div>
     </div>
+  <div id="moviePanel">
+    <h1 id="title"></h1>
+    <div id="trending">
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+    </div>
+  </div>
+   
   </section>
   <script src="./scripts/home.js"></script>
+  <script src="./scripts/fetchMovies.js"></script>
 </body>
 </html>
