@@ -5,6 +5,9 @@
     font-family: 'Poppins', sans-serif;
     color: white;
 }
+body{
+    background-color: #252525;
+}
 #sidebar{
     position: absolute;
     height: 100vh;
