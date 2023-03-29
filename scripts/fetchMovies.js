@@ -6,7 +6,8 @@ const baseUrl = "https://api.themoviedb.org/3"
 
 // Define the API paths for different data we want to fetch
 const apiPaths = {
-    fetchCategories: `${baseUrl}/genre/movie/list?api_key=${apiKey}`
+    fetchCategories: `${baseUrl}/genre/movie/list?api_key=${apiKey}`,
+    fetchMovieList: (id) => `${baseUrl}/discover/movie?api_key=${apiKey}&with_genres=${id}`
 }
 
 // Define an async function to fetch data from the API
