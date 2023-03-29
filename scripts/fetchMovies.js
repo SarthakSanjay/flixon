@@ -30,17 +30,22 @@ function fetchAndBuildAllSections(){
     .then(res => res.json())
     // Extract the movie genres from the response data
     .then(res =>{
-        const movies = res.genres
+        const categories = res.genres
         // Map over the movie genres and return an array of genre names
-        movies.map((obj =>{
-            console.log(obj.name)
-            return obj.name
-        }))
+        // movies.map((obj =>{
+        //     console.log(obj.name)
+        //     return obj.name
+        // }))
+        if(Array.isArray(categories) && categories.length)
+        
     })
     // Log any errors to the console
     .catch(err =>console.log(err))
 }
 
+function fetchAndBuildMovieSection(fetchData , category){
+
+}
 // Add an event listener to run the fetchAndBuildAllSections function when the page loads
 window.addEventListener('load',()=>{
     fetchAndBuildAllSections()
