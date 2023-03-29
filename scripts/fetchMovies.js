@@ -37,7 +37,9 @@ function fetchAndBuildAllSections(){
         //     return obj.name
         // }))
         if(Array.isArray(categories) && categories.length)
-        
+        categories.forEach(category =>{
+            fetchAndBuildMovieSection(fetchMoviesList(category.id))
+        })
     })
     // Log any errors to the console
     .catch(err =>console.log(err))
