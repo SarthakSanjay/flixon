@@ -38,7 +38,7 @@ function fetchAndBuildAllSections(){
         // }))
         if(Array.isArray(categories) && categories.length)
         categories.forEach(category =>{
-            fetchAndBuildMovieSection(apiPaths.fetchMoviesList(category.id))
+            fetchAndBuildMovieSection(apiPaths.fetchMovieList(category.id),category)
         })
     })
     // Log any errors to the console
@@ -46,7 +46,11 @@ function fetchAndBuildAllSections(){
 }
 
 function fetchAndBuildMovieSection(fetchData , category){
-
+// console.log(fetchData +" " + category)
+fetch(fetchData)
+.then(res => res.json())
+.then(res => console.log(res.results))
+.catch(err => console.log(err))
 }
 // Add an event listener to run the fetchAndBuildAllSections function when the page loads
 window.addEventListener('load',()=>{
