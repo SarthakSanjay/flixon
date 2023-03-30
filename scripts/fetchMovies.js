@@ -45,6 +45,9 @@ function fetchAndBuildAllSections(){
     .catch(err =>console.log(err))
 }
 
+document.getElementById("moviePanel").cre
+
+
 function fetchAndBuildMovieSection(fetchData , category){
 // console.log(fetchData +" " + category)
 fetch(fetchData)

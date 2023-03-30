@@ -74,6 +74,11 @@ body{
     text-decoration: blueviolet underline;
 
 }
+#moviePanel{
+
+    width: 95vw;
+    margin: 20px auto;
+}
 
 #trending{
     border: 1px solid blueviolet;
