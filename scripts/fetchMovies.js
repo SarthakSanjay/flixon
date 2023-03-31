@@ -3,7 +3,7 @@
 // Set the API key and base URL for the MovieDB API
 const apiKey = "9dafab561b71196c6c57491f4cd20519"
 const baseUrl = "https://api.themoviedb.org/3"
-
+const imgPath = "https://image.tmdb.org/t/p/original"
 // Define the API paths for different data we want to fetch
 const apiPaths = {
     fetchCategories: `${baseUrl}/genre/movie/list?api_key=${apiKey}`,
@@ -45,15 +45,40 @@ function fetchAndBuildAllSections(){
     .catch(err =>console.log(err))
 }
 
-document.getElementById("moviePanel").cre
+
 
 
 function fetchAndBuildMovieSection(fetchData , category){
 // console.log(fetchData +" " + category)
 fetch(fetchData)
 .then(res => res.json())
-.then(res => console.log(res.results))
+.then(res => {
+    const movies = res.results
+    if(Array.isArray(movies)&& movies.length)
+    {
+        buildMoviesSection(movies , category.name)
+    }
+})
 .catch(err => console.log(err))
+}
+function buildMoviesSection(list , categoryName){
+    // console.log(list)
+    // console.log(categoryName)
+    const moviesContainer = document.getElementById("moviesContainer")
+   const moviesListHTML =  list.map((item)=>{
+        return `
+        <img class="movie-items" src="${imgPath}${item.backdrop_path}" alt="${item.title}" />
+        `
+    })
+    const movieSectionHTML = `
+    <div id="moviePanel">
+        <h1 id="title">${categoryName}</h1>
+      <div class="movies-row">
+        ${moviesListHTML}
+      </div>
+      </div>
+    `
+    console.log(movieSectionHTML)
 }
 // Add an event listener to run the fetchAndBuildAllSections function when the page loads
 window.addEventListener('load',()=>{
