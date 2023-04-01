@@ -64,21 +64,26 @@ fetch(fetchData)
 function buildMoviesSection(list , categoryName){
     // console.log(list)
     // console.log(categoryName)
-    const moviesContainer = document.getElementById("moviesContainer")
+    const moviesContainer = document.getElementById("movieContainer")
    const moviesListHTML =  list.map((item)=>{
         return `
-        <img class="movie-items" src="${imgPath}${item.backdrop_path}" alt="${item.title}" />
+        <img class="move-item-img" src="${imgPath}${item.backdrop_path}" alt="${item.title}" />
         `
-    })
+    }).join('')
     const movieSectionHTML = `
-    <div id="moviePanel">
         <h1 id="title">${categoryName}</h1>
       <div class="movies-row">
         ${moviesListHTML}
       </div>
-      </div>
     `
     console.log(movieSectionHTML)
+
+    const div = document.createElement("div")
+    div.id = "moviePanel"
+    div.innerHTML = movieSectionHTML
+    //append div into movies container
+    moviesContainer.append(div)
+
 }
 // Add an event listener to run the fetchAndBuildAllSections function when the page loads
 window.addEventListener('load',()=>{
