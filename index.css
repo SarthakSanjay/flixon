@@ -54,6 +54,7 @@ body {
     border-bottom-right-radius: 10px;
     position: relative;
     top: 38%;
+    cursor: pointer;
 
 }
 
@@ -132,6 +133,7 @@ body {
 
 .movies-row::-webkit-scrollbar {
     background-color: transparent;
+    display: none;
 }
 
 .movieContainer img {
