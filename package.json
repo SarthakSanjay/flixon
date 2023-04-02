@@ -1,0 +1,22 @@
+{
+  "name": "flixon",
+  "version": "1.0.0",
+  "description": "movie streaming app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SarthakSanjay/flixon.git"
+  },
+  "author": "sarthak",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SarthakSanjay/flixon/issues"
+  },
+  "homepage": "https://github.com/SarthakSanjay/flixon#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
