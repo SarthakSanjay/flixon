@@ -137,6 +137,7 @@ h2, h3, h4, h5, h6{
     outline: none;
     border: none;
     border-radius: 5px;
+    cursor: pointer;
 }
 .inner-email button{
     font-size: 25px;
@@ -146,6 +147,7 @@ h2, h3, h4, h5, h6{
     border-radius: 5px;
     outline: none;
     border: none;
+    cursor: pointer;
 }
 .inner-email button:hover{
     background-color: rgb(85, 21, 146);

@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-auth.js";
+import { getAuth, createUserWithEmailAndPassword ,signInWithEmailAndPassword  } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-auth.js";
   // TODO: Add SDKs for Firebase products that you want to use
   // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -24,7 +24,8 @@ import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com
 const auth = getAuth();
 
 
-  document.getElementById("register").addEventListener("click" , function(){
+  document.querySelector(".email").addEventListener("submit" , function(event){
+    event.preventDefault();
     let email = document.getElementById("email").value
     let password = document.getElementById("password").value
 
@@ -48,7 +49,7 @@ const auth = getAuth();
 
 
 
-    createUserWithEmailAndPassword(auth, email, password)
+  createUserWithEmailAndPassword(auth, email, password)
   .then((userCredential) => {
     // Signed in 
     const user = userCredential.user;
@@ -63,9 +64,37 @@ const auth = getAuth();
     const errorMessage = error.message;
     console.log(errorMessage)
     alert("error")
+    if (errorCode === "auth/email-already-in-use") {
+      // Email is already registered, redirect to login page
+      window.location.href = "login.html";
+    }
     // ..
   });
   })
 
 
-  
+  document.getElementById("login").addEventListener("submit" , function(event){
+    event.preventDefault();
+    let email = document.getElementById("email").value
+    let password = document.getElementById("password").value
+    signInWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      // Signed in
+      const user = userCredential.user;
+      console.log(user);
+      // Redirect to home page
+      window.location.href = "home.html";
+      alert("you are now logged in");
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      if (errorCode === "auth/user-not-found" || errorCode === "auth/wrong-password") {
+        // Email is not registered or password is wrong, show error message
+        alert("Invalid email or password. Please try again.");
+      }  else {
+        console.log(errorMessage);
+        alert("Error. Please try again.");
+      }
+    });
+  })
