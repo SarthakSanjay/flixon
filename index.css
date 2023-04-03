@@ -74,6 +74,7 @@ body {
     grid-template-columns: 50px 1fr;
     border-bottom: 1px solid blueviolet;
     background-color: #252525;
+    z-index: 1;
 }
 
 .navbar h1 {
@@ -102,7 +103,36 @@ body {
     text-decoration: blueviolet underline;
 
 }
+/* banner */
+.banner{
+    height: 100vh;
+    width: 100vw;
+    margin-top: 50px;
+    border: 1px solid red;
+    display: flex;
+}
+.banner-content{
 
+}
+#movie-title{
+
+}
+#rating{
+
+}
+#movie-desc{
+
+}
+#banner-btn{
+
+}
+#play{
+
+}
+#more-info{
+
+}
+/* banner */
 #movieContainer {
     width: 95vw;
     min-width: 100vh;
@@ -111,7 +141,9 @@ body {
     /* border: 1px solid white; */
 
 }
-
+#title{
+    margin: 0px 10px;
+}
 #moviePanel {
 
     /* border: 1px solid red; */
@@ -138,12 +170,17 @@ body {
 
 .movieContainer img {
     width: 250px;
+    height: 140px;
+
     /* height: 200px; */
     /* border: 1px solid yellow; */
     border-radius: 10px;
     margin: 0px 10px;
 }
 
+.movieContainer img:hover{
+    transform: scale(1.2,1.2);
+}
 #trending {
     /* border: 1px solid blueviolet; */
     height: 30vh;
