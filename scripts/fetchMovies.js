@@ -7,7 +7,8 @@ const imgPath = "https://image.tmdb.org/t/p/original"
 // Define the API paths for different data we want to fetch
 const apiPaths = {
     fetchCategories: `${baseUrl}/genre/movie/list?api_key=${apiKey}`,
-    fetchMovieList: (id) => `${baseUrl}/discover/movie?api_key=${apiKey}&with_genres=${id}`
+    fetchMovieList: (id) => `${baseUrl}/discover/movie?api_key=${apiKey}&with_genres=${id}`,
+    fetchTrending: `${baseUrl}/trending/all/day?api_key=${apiKey}&language-en-US`
 }
 
 // Define an async function to fetch data from the API
@@ -87,5 +88,6 @@ function buildMoviesSection(list , categoryName){
 }
 // Add an event listener to run the fetchAndBuildAllSections function when the page loads
 window.addEventListener('load',()=>{
+    fetchAndBuildMovieSection()
     fetchAndBuildAllSections()
 })
