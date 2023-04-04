@@ -50,7 +50,7 @@ function fetchAndBuildAllSections(){
 
 function fetchAndBuildMovieSection(fetchData , category){
 // console.log(fetchData +" " + category)
-fetch(fetchData)
+return fetch(fetchData)
 .then(res => res.json())
 .then(res => {
     const movies = res.results
@@ -58,7 +58,7 @@ fetch(fetchData)
     {
         buildMoviesSection(movies , category)
     }
-   
+   return movies
 })
 .catch(err => console.log(err))
 }
@@ -86,8 +86,31 @@ function buildMoviesSection(list , categoryName){
     moviesContainer.append(div)
 
 }
+function fetchTrendingMovies(){
+    fetchAndBuildMovieSection(apiPaths.fetchTrending , "Trending Now")
+    .then(list=>{
+        buildBannerSection(list[0])
+        }).catch(err => {console.log(err)})
+}
+function buildBannerSection(movie){
+    const bannerContainer = document.getElementById('bannerCont')
+    bannerContainer.style.backgroundImage =  `${imgPath}${movie.backdrop_path}`
+    bannerContainer.innerHTML = `
+    <h1 id="movie-title">${movie.title}</h1>
+    <p id="rating">this is the rating of the movie</p>
+    <p class="movie-desc">${movie.overview}</p>
+    <div class="banner-btn">
+      <button id="play">Play</button>
+      <button id="more-info">more-info</button>
+    </div>
+    `
+    console.log(movie)
+    const div = document.createElement('div')
+    div.className = "banner-content"
+    bannerContainer.appendChild(div)
+}
 // Add an event listener to run the fetchAndBuildAllSections function when the page loads
 window.addEventListener('load',()=>{
-    fetchAndBuildMovieSection(apiPaths.fetchTrending , "Trending Now")
+    fetchTrendingMovies()
     fetchAndBuildAllSections()
 })

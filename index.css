@@ -110,8 +110,9 @@ body {
     /* margin-top: 50px; */
     border: 1px solid red;
     display: flex;
+    flex-direction: column;
     /* :linear-gradient(to left , white , black) ; */
-    background-image: url(https://image.tmdb.org/t/p/original/i8dshLvq4LE3s0v8PrkDdUyb1ae.jpg);
+    /* background-image: url(https://image.tmdb.org/t/p/original/i8dshLvq4LE3s0v8PrkDdUyb1ae.jpg); */
     background-repeat: no-repeat;
     background-size: cover;
 }
