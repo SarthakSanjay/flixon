@@ -48,7 +48,6 @@ function fetchAndBuildAllSections(){
 
 
 
-
 function fetchAndBuildMovieSection(fetchData , category){
 // console.log(fetchData +" " + category)
 fetch(fetchData)
@@ -59,6 +58,7 @@ fetch(fetchData)
     {
         buildMoviesSection(movies , category.name)
     }
+   
 })
 .catch(err => console.log(err))
 }
@@ -68,7 +68,7 @@ function buildMoviesSection(list , categoryName){
     const moviesContainer = document.getElementById("movieContainer")
    const moviesListHTML =  list.map((item)=>{
         return `
-        <img class="move-item-img" src="${imgPath}${item.backdrop_path}" alt="${item.title}" />
+        <img  class="move-item-img" src="${imgPath}${item.backdrop_path}" alt="${item.title}" />
         `
     }).join('')
     const movieSectionHTML = `
@@ -88,6 +88,6 @@ function buildMoviesSection(list , categoryName){
 }
 // Add an event listener to run the fetchAndBuildAllSections function when the page loads
 window.addEventListener('load',()=>{
-    fetchAndBuildMovieSection()
+    fetchAndBuildMovieSection(apiPaths.fetchTrending , "Trending Now")
     fetchAndBuildAllSections()
 })
