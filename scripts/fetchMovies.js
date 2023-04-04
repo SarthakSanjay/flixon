@@ -39,7 +39,7 @@ function fetchAndBuildAllSections(){
         // }))
         if(Array.isArray(categories) && categories.length)
         categories.forEach(category =>{
-            fetchAndBuildMovieSection(apiPaths.fetchMovieList(category.id),category)
+            fetchAndBuildMovieSection(apiPaths.fetchMovieList(category.id),category.name)
         })
     })
     // Log any errors to the console
@@ -56,7 +56,7 @@ fetch(fetchData)
     const movies = res.results
     if(Array.isArray(movies)&& movies.length)
     {
-        buildMoviesSection(movies , category.name)
+        buildMoviesSection(movies , category)
     }
    
 })
@@ -77,7 +77,7 @@ function buildMoviesSection(list , categoryName){
         ${moviesListHTML}
       </div>
     `
-    console.log(movieSectionHTML)
+    // console.log(movieSectionHTML)
 
     const div = document.createElement("div")
     div.id = "moviePanel"
