@@ -89,13 +89,18 @@ function buildMoviesSection(list , categoryName){
 function fetchTrendingMovies(){
     fetchAndBuildMovieSection(apiPaths.fetchTrending , "Trending Now")
     .then(list=>{
-        buildBannerSection(list[0])
+        let movieItem = Math.floor(Math.random() * list.length)
+        buildBannerSection(list[movieItem])
         }).catch(err => {console.log(err)})
 }
 function buildBannerSection(movie){
     const bannerContainer = document.getElementById('bannerCont')
-    bannerContainer.style.backgroundImage =  `${imgPath}${movie.backdrop_path}`
-    bannerContainer.innerHTML = `
+    let imageUrl = `${imgPath}${movie.backdrop_path}`
+    bannerContainer.style.backgroundImage = `url(${imageUrl})`
+    console.log(imageUrl)
+    const contentDiv = document.createElement('contentDiv')
+    contentDiv.id = "banner-content"
+    contentDiv.innerHTML = `
     <h1 id="movie-title">${movie.title}</h1>
     <p id="rating">this is the rating of the movie</p>
     <p class="movie-desc">${movie.overview}</p>
@@ -105,9 +110,10 @@ function buildBannerSection(movie){
     </div>
     `
     console.log(movie)
-    const div = document.createElement('div')
-    div.className = "banner-content"
-    bannerContainer.appendChild(div)
+    console.log(`${imgPath}${movie.backdrop_path}`)
+
+   
+    bannerContainer.appendChild(contentDiv)
 }
 // Add an event listener to run the fetchAndBuildAllSections function when the page loads
 window.addEventListener('load',()=>{
