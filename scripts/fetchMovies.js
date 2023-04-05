@@ -66,13 +66,16 @@ function buildMoviesSection(list , categoryName){
     // console.log(list)
     // console.log(categoryName)
     const moviesContainer = document.getElementById("movieContainer")
+
    const moviesListHTML =  list.map((item)=>{
         return `
-        <img  class="move-item-img" src="${imgPath}${item.backdrop_path}" alt="${item.title}" />
+        <img  class="move-item-img" src="${imgPath}${item.poster_path}" alt="${item.title}" />
         `
     }).join('')
+    // 6/4/23
+    // document.getElementById("title")
     const movieSectionHTML = `
-        <h1 id="title">${categoryName}</h1>
+        <h1 id="title">${categoryName}</h1><span>Explore</span>
       <div class="movies-row">
         ${moviesListHTML}
       </div>
@@ -100,10 +103,16 @@ function buildBannerSection(movie){
     console.log(imageUrl)
     const contentDiv = document.createElement('contentDiv')
     contentDiv.id = "banner-content"
+    if (movie.original_language === "en"){
+        mtitle = movie.original_title
+    }
+    else{
+        mtitle = movie.title
+    }
     contentDiv.innerHTML = `
-    <h1 id="movie-title">${movie.title}</h1>
-    <p id="rating">this is the rating of the movie</p>
-    <p class="movie-desc">${movie.overview}</p>
+    <h1 id="movie-title">${mtitle}</h1>
+    <p id="rating">${movie.release_date}</p>
+    <p class="movie-desc">${movie.overview.split(" ").slice(0,20).join(" ")}....</p>
     <div class="banner-btn">
       <button id="play">Play</button>
       <button id="more-info">more-info</button>

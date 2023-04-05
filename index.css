@@ -73,9 +73,12 @@ body {
     display: grid;
     grid-template-columns: 50px 1fr;
     border-bottom: 1px solid blueviolet;
-    background-color: #252525;
+    /* background-color: #252525; */
+    background-image: linear-gradient(to bottom ,black,rgba(0, 0, 0, 0.457));
     z-index: 1;
 }
+
+
 
 .navbar h1 {
     margin: 0px 50px;
@@ -123,29 +126,32 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    /* background-color: rgba(0, 0, 0, 0.342); */
+    /* background-color:  */
+    background-image: linear-gradient(to right ,black,rgba(0, 0, 0, 0.792),rgba(0, 0, 0, 0.342),transparent);
 }
 #movie-title{
     font-size: 50px;
     width: 40vw;
-    margin-left: 30px;
+    margin-left: 60px;
 }
 #rating{
-    margin-left: 30px;
+    margin-left: 60px;
     font-size: 20px;
 }
 .movie-desc{
-    margin-left: 30px;
+    margin-left: 60px;
     font-size: 15px;
+    width: 30vw;
 }
 .banner-btn{
     display: flex;
     width: 100%;
-    margin: 30px;
+    margin: 50px;
 }
 #play{
     font-size: 15px;
-    width: 100px;
+    width: 120px;
+    height: 50px;
     background-color: blueviolet;
     color: #252525;
     border-radius: 5px;
@@ -154,8 +160,13 @@ body {
     cursor: pointer;
     
 }
+#play:hover{
+    background-color: rgb(88, 44, 130);
+    color: white;
+}
 #more-info{
-    width: 100px;
+    width: 120px;
+    height: 50px;
     font-size: 15px;
     background-color: #252525;
     color: blueviolet ;
@@ -164,6 +175,10 @@ body {
     margin: 0px 10px;
     cursor: pointer;
     
+
+}
+#more-info:hover{
+    background-color: #000000c7;
 
 }
 /* banner */
@@ -177,6 +192,11 @@ body {
 }
 #title{
     margin: 0px 10px;
+    /* width: fit-content; */
+    display: inline;
+}
+#movieContainer span{
+    display: none;
 }
 #moviePanel {
 
@@ -203,8 +223,8 @@ body {
 }
 
 .movieContainer img {
-    width: 250px;
-    height: 140px;
+    width: 150px;
+    /* height: 140px; */
 
     /* height: 200px; */
     /* border: 1px solid yellow; */
