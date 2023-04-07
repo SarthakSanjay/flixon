@@ -8,10 +8,18 @@ const imgPath = "https://image.tmdb.org/t/p/original"
 const apiPaths = {
     fetchCategories: `${baseUrl}/genre/movie/list?api_key=${apiKey}`,
     fetchMovieList: (id) => `${baseUrl}/discover/movie?api_key=${apiKey}&with_genres=${id}`,
-    fetchTrending: `${baseUrl}/trending/all/day?api_key=${apiKey}&language-en-US`
+    fetchTrending: `${baseUrl}/trending/all/day?api_key=${apiKey}&language-en-US`,
+   // fetchMovieVideo:(movieID) => `${baseUrl}/movie/${movieID}/videos?api_key=${apiKey}&language=en-US`
 }
 
+function fetchMovieVideos(movieID){
+   fetch(`${baseUrl}/movie/${movieID}/videos?api_key=${apiKey}&language=en-US`)
+   .then(res => {
+    console.log(res)
+   })
 
+
+}
 // Define an async function to fetch data from the API
 const fetchData = async () => {
     
@@ -20,7 +28,7 @@ const fetchData = async () => {
     // Use the json function to parse the response data as JSON
     let fetchData = await data.json()
     // Log the fetched data to the console
-    console.log(fetchData)
+    // console.log(fetchData)
     // Return the fetched data
     
     return fetchData
@@ -73,8 +81,9 @@ function buildMoviesSection(list , categoryName){
    const moviesListHTML =  list.map((item)=>{
         return `
         <div class="movie-item">
+        <a href="${apiPaths.fetchMovieVideo(item.id)}">
         <img  class="move-item-img" src="${imgPath}${item.poster_path}" alt="${item.title}" />
-       
+       </a>
         </div>
         `
     }).join('')
@@ -102,6 +111,9 @@ function buildMoviesSection(list , categoryName){
     moviesContainer.append(div)
 
 }
+// function fetchVideo(fetchVideo , videoID){
+//     return apiPaths.fetchMovieVideo
+// }
 function fetchTrendingMovies(){
     fetchAndBuildMovieSection(apiPaths.fetchTrending , "Trending Now")
     .then(list=>{
@@ -113,26 +125,26 @@ function buildBannerSection(movie){
     const bannerContainer = document.getElementById('bannerCont')
     let imageUrl = `${imgPath}${movie.backdrop_path}`
     bannerContainer.style.backgroundImage = `url(${imageUrl})`
-    console.log(imageUrl)
+    // console.log(movie)
     const contentDiv = document.createElement('contentDiv')
     contentDiv.id = "banner-content"
     if (movie.original_language === "en"){
-        mtitle = movie.original_title
+        mtitle = movie.original_title ? movie.original_title : movie.name
     }
     else{
-        mtitle = movie.title
+        mtitle = movie.title ? movie.title : movie.original_name
     }
     contentDiv.innerHTML = `
     <h1 id="movie-title">${mtitle}</h1>
-    <p id="rating">${movie.release_date}</p>
+    <p id="rating">${movie.release_date ? movie.release_date : movie.first}</p>
     <p class="movie-desc">${movie.overview.split(" ").slice(0,20).join(" ")}....</p>
     <div class="banner-btn">
       <button id="play"><img class="icon" src="/images/play.png" />Play</button>
       <button id="more-info"><img class="icon" src="/images/info.png" />more-info</button>
     </div>
     `
-    console.log(movie)
-    console.log(`${imgPath}${movie.backdrop_path}`)
+    // console.log(movie)
+    // console.log(`${imgPath}${movie.backdrop_path}`)
 
    
     bannerContainer.appendChild(contentDiv)
