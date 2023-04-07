@@ -69,7 +69,9 @@ function buildMoviesSection(list , categoryName){
 
    const moviesListHTML =  list.map((item)=>{
         return `
+        <div class="movie-item">
         <img  class="move-item-img" src="${imgPath}${item.poster_path}" alt="${item.title}" />
+        </div>
         `
     }).join('')
     // 6/4/23
@@ -81,7 +83,14 @@ function buildMoviesSection(list , categoryName){
       </div>
     `
     // console.log(movieSectionHTML)
-
+    //popup
+    // const box = document.querySelector('.move-item-img')
+    // const popup = document.createElement('div')
+    // popup.className = "popup"
+    // box.appendChild(popup)
+    // popup.className = "movie-gallery"
+    // document.body.appendChild(popup)
+    //popup
     const div = document.createElement("div")
     div.id = "moviePanel"
     div.innerHTML = movieSectionHTML

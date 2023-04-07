@@ -55,6 +55,7 @@ body {
     position: relative;
     top: 38%;
     cursor: pointer;
+    z-index: 2;
 
 }
 
@@ -74,7 +75,7 @@ body {
     grid-template-columns: 50px 1fr;
     border-bottom: 1px solid blueviolet;
     /* background-color: #252525; */
-    background-image: linear-gradient(to bottom ,black,rgba(0, 0, 0, 0.457));
+    background-image: linear-gradient(to bottom, black, rgba(0, 0, 0, 0.457));
     z-index: 1;
 }
 
@@ -106,8 +107,9 @@ body {
     text-decoration: blueviolet underline;
 
 }
+
 /* banner */
-.banner{
+.banner {
     height: 100vh;
     width: 100vw;
     /* margin-top: 50px; */
@@ -119,7 +121,8 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
 }
-#banner-content{
+
+#banner-content {
     height: 100vh;
     width: 50vw;
     /* border: 1px solid greenyellow; */
@@ -127,28 +130,33 @@ body {
     flex-direction: column;
     justify-content: center;
     /* background-color:  */
-    background-image: linear-gradient(to right ,black,rgba(0, 0, 0, 0.792),rgba(0, 0, 0, 0.342),transparent);
+    background-image: linear-gradient(to right, black, rgba(0, 0, 0, 0.792), rgba(0, 0, 0, 0.342), transparent);
 }
-#movie-title{
+
+#movie-title {
     font-size: 50px;
     width: 40vw;
     margin-left: 60px;
 }
-#rating{
+
+#rating {
     margin-left: 60px;
     font-size: 20px;
 }
-.movie-desc{
+
+.movie-desc {
     margin-left: 60px;
     font-size: 15px;
     width: 30vw;
 }
-.banner-btn{
+
+.banner-btn {
     display: flex;
     width: 100%;
     margin: 50px;
 }
-#play{
+
+#play {
     font-size: 15px;
     width: 120px;
     height: 50px;
@@ -158,51 +166,62 @@ body {
     border: none;
     margin: 0px 10px;
     cursor: pointer;
-    
+
 }
-#play:hover{
+
+#play:hover {
     background-color: rgb(88, 44, 130);
     color: white;
 }
-#more-info{
+
+#more-info {
     width: 120px;
     height: 50px;
     font-size: 15px;
     background-color: #252525;
-    color: blueviolet ;
+    color: blueviolet;
     border-radius: 5px;
     border: 1px solid white;
     margin: 0px 10px;
     cursor: pointer;
-    
+
 
 }
-#more-info:hover{
+
+#more-info:hover {
     background-color: #000000c7;
 
 }
+
 /* banner */
 #movieContainer {
     width: 95vw;
     min-width: 100vh;
-    margin: 60px auto;
+    margin: -200px auto;
+    z-index: 5;
 
     /* border: 1px solid white; */
 
 }
-#title{
+
+#title {
     margin: 0px 10px;
     /* width: fit-content; */
     display: inline;
 }
-#movieContainer span{
+
+#movieContainer span {
     display: none;
 }
+
 #moviePanel {
 
     /* border: 1px solid red; */
+    /* margin-top: -30px; */
     width: 95vw;
     margin: 20px auto;
+    position: relative;
+    z-index: 5;
 }
 
 .movies-row {
@@ -221,20 +240,26 @@ body {
     background-color: transparent;
     display: none;
 }
-
-.movieContainer img {
+.movie-item{
     width: 150px;
-    /* height: 140px; */
-
-    /* height: 200px; */
-    /* border: 1px solid yellow; */
+    height: 225px;
     border-radius: 10px;
     margin: 0px 10px;
 }
+.movieContainer img {
+    width: 150px;
+    height: 225px;
+    border-radius: 10px;
+    margin: 0px 10px;
+   
 
-.movieContainer img:hover{
-    transform: scale(1.2,1.2);
+   
 }
+
+.movie-item:hover {
+    transform: scale(1.2);
+}
+
 #trending {
     /* border: 1px solid blueviolet; */
     height: 30vh;
@@ -250,4 +275,26 @@ body {
     margin: 15px 10px;
     border-radius: 10px;
 
+}
+
+.popup {
+    position: absolute;
+    top: 53%;
+    /* margin: 0px auto; */
+    right: 10%;
+    height: 80vh;
+    width: 80vw;
+    background-color: #252525;
+}
+
+.fade {
+    width: 100vw;
+    height: 20vh;
+    position: absolute;
+    top: 80%;
+    /* bottom: 0%; */
+    /* background: linear-gradient(to top , black , rgba(0, 0, 0, 0.443) , transparent) ; */
+    z-index: 1;
+    /* filter: blur(5px); */
+    background-image: linear-gradient(180deg, hsla(0, 0%, 8%, 0) 0, hsla(0, 0%, 8%, .15) 15%, hsla(0, 0%, 8%, .35) 29%, hsla(0, 0%, 8%, .58) 44%, #141414 68%, #141414);
 }
