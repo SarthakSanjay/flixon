@@ -351,3 +351,23 @@ body {
   .movieContainer img:hover .popup {
     display: block;
   }
+
+  /* Responsiveness */
+
+  @media (max-width: 767px) {
+    /* CSS rules for mobile devices */
+    .navbar{
+        height: 50px;
+        background-color: #000000;
+    }
+    #nav-items {
+      display: none;
+    }
+    .banner{
+        display: none;
+    }
+  }
+
+  @media (min-width: 768px) and (max-width: 991px) {
+    /* CSS rules for tablets */
+  }

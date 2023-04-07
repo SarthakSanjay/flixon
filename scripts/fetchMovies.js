@@ -81,12 +81,11 @@ function buildMoviesSection(list , categoryName){
    const moviesListHTML =  list.map((item)=>{
         return `
         <div class="movie-item">
-        <a href="${apiPaths.fetchMovieVideo(item.id)}">
         <img  class="move-item-img" src="${imgPath}${item.poster_path}" alt="${item.title}" />
-       </a>
         </div>
         `
     }).join('')
+    // <a href="${apiPaths.fetchMovieVideo(item.id)}"></a>
     // 6/4/23
     // document.getElementById("title")
     const movieSectionHTML = `
