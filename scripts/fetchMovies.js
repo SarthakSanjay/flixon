@@ -11,8 +11,10 @@ const apiPaths = {
     fetchTrending: `${baseUrl}/trending/all/day?api_key=${apiKey}&language-en-US`
 }
 
+
 // Define an async function to fetch data from the API
 const fetchData = async () => {
+    
     // Use the fetch function to make a GET request to the API
     let data = await fetch(apiPaths.fetchCategories)
     // Use the json function to parse the response data as JSON
@@ -20,6 +22,7 @@ const fetchData = async () => {
     // Log the fetched data to the console
     console.log(fetchData)
     // Return the fetched data
+    
     return fetchData
 }
 
@@ -71,6 +74,7 @@ function buildMoviesSection(list , categoryName){
         return `
         <div class="movie-item">
         <img  class="move-item-img" src="${imgPath}${item.poster_path}" alt="${item.title}" />
+       
         </div>
         `
     }).join('')
@@ -123,8 +127,8 @@ function buildBannerSection(movie){
     <p id="rating">${movie.release_date}</p>
     <p class="movie-desc">${movie.overview.split(" ").slice(0,20).join(" ")}....</p>
     <div class="banner-btn">
-      <button id="play">Play</button>
-      <button id="more-info">more-info</button>
+      <button id="play"><img class="icon" src="/images/play.png" />Play</button>
+      <button id="more-info"><img class="icon" src="/images/info.png" />more-info</button>
     </div>
     `
     console.log(movie)
@@ -135,6 +139,11 @@ function buildBannerSection(movie){
 }
 // Add an event listener to run the fetchAndBuildAllSections function when the page loads
 window.addEventListener('load',()=>{
+    const loadingIndicator = document.getElementById('spinner');
+    loadingIndicator.style.display = 'block';
     fetchTrendingMovies()
     fetchAndBuildAllSections()
+    setTimeout(()=>{
+        loadingIndicator.style.display = 'none';
+    },1000)
 })
