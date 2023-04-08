@@ -9,6 +9,7 @@ const apiPaths = {
     fetchCategories: `${baseUrl}/genre/movie/list?api_key=${apiKey}`,
     fetchMovieList: (id) => `${baseUrl}/discover/movie?api_key=${apiKey}&with_genres=${id}`,
     fetchTrending: `${baseUrl}/trending/all/day?api_key=${apiKey}&language-en-US`,
+    searchYoutube:(query)=> `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${query}&key=AIzaSyA3Ph5BiuAUdUK7RhGqE51GApYj-iao5Ww`
    // fetchMovieVideo:(movieID) => `${baseUrl}/movie/${movieID}/videos?api_key=${apiKey}&language=en-US`
 }
 
@@ -74,17 +75,18 @@ return fetch(fetchData)
 .catch(err => console.log(err))
 }
 function buildMoviesSection(list , categoryName){
-    // console.log(list)
-    // console.log(categoryName)
     const moviesContainer = document.getElementById("movieContainer")
 
    const moviesListHTML =  list.map((item)=>{
+      
         return `
-        <div class="movie-item">
-        <img  class="move-item-img" src="${imgPath}${item.poster_path}" alt="${item.title}" />
+        <div class="movie-item" id="movie-item">
+        <img  class="move-item-img" src="${imgPath}${item.poster_path}" alt="${item.title}" onmouseover="displayPopup()" onclick="searchMovieTrailer('${item.title}')" />
+       
         </div>
         `
     }).join('')
+
     // <a href="${apiPaths.fetchMovieVideo(item.id)}"></a>
     // 6/4/23
     // document.getElementById("title")
@@ -95,14 +97,6 @@ function buildMoviesSection(list , categoryName){
       </div>
     `
     // console.log(movieSectionHTML)
-    //popup
-    // const box = document.querySelector('.move-item-img')
-    // const popup = document.createElement('div')
-    // popup.className = "popup"
-    // box.appendChild(popup)
-    // popup.className = "movie-gallery"
-    // document.body.appendChild(popup)
-    //popup
     const div = document.createElement("div")
     div.id = "moviePanel"
     div.innerHTML = movieSectionHTML
@@ -110,6 +104,13 @@ function buildMoviesSection(list , categoryName){
     moviesContainer.append(div)
 
 }
+
+
+
+
+
+
+
 // function fetchVideo(fetchVideo , videoID){
 //     return apiPaths.fetchMovieVideo
 // }
@@ -120,6 +121,13 @@ function fetchTrendingMovies(){
         buildBannerSection(list[movieItem])
         }).catch(err => {console.log(err)})
 }
+
+
+
+
+
+
+
 function buildBannerSection(movie){
     const bannerContainer = document.getElementById('bannerCont')
     let imageUrl = `${imgPath}${movie.backdrop_path}`
@@ -142,19 +150,48 @@ function buildBannerSection(movie){
       <button id="more-info"><img class="icon" src="/images/info.png" />more-info</button>
     </div>
     `
-    // console.log(movie)
-    // console.log(`${imgPath}${movie.backdrop_path}`)
-
-   
     bannerContainer.appendChild(contentDiv)
 }
+//movie trailer
+
+function searchMovieTrailer(movieName){
+    if(!movieName) return;
+
+    fetch(apiPaths.searchYoutube(movieName))
+    .then(res=>res.json())
+    .then(res=> {
+        console.log(res)
+        const bestSearchResult = res.items[0]
+        // const ytURL = `https://www.youtube.com/watch?v=${bestSearchResult.id.videoId}`
+        // console.log(ytURL)
+
+    })
+    .catch(err => console.log(err))
+
+
+}
+
+//movie trailer
+
+
 // Add an event listener to run the fetchAndBuildAllSections function when the page loads
 window.addEventListener('load',()=>{
     const loadingIndicator = document.getElementById('spinner');
     loadingIndicator.style.display = 'block';
     fetchTrendingMovies()
     fetchAndBuildAllSections()
+   
     setTimeout(()=>{
         loadingIndicator.style.display = 'none';
     },1000)
+})
+
+window.addEventListener("scroll" ,function (){
+    const navBar = document.querySelector(".navbar")
+    if(window.scrollY >5){
+        navBar.style.background = 'black'
+
+    }else{
+        navBar.style.background = ' linear-gradient(to bottom, black, rgba(0, 0, 0, 0.457))'
+    }
 })
