@@ -310,14 +310,59 @@ body {
 
 }
 .pop-up-div{
-    position: absolute;
-    height: 500px;
-    width: 500px;
-    background-color: blueviolet;
-    top: 20%;
-    left: 40%;
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
     z-index: 10;
-    display: none;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px) saturate(150%);
+    /* display: none; */
+}
+.popup-content{
+    height: 80%;
+    width: 80%;
+    background-color: #00000097;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: row;
+    
+}
+.popup-movie-image{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 500px;
+}
+.popup-movie-image img{
+    border-radius: 20px;
+    /* height: 400px; */
+    width: 300px;
+}
+.popup-movie-details{
+    width: 100%;
+}
+#closeBtn{
+    height: 50px;
+    width: 50px;
+    border: 2px solid white;
+    color: white;
+    outline: none;
+    background:none;
+    border-radius: 50%;
+    font-size: 25px;
+    font-weight: bolder;
+    position: relative;
+    top: 2%;
+    left:90%;
+}
+#closeBtn:hover{
+    background-color: #f1f1f1;
+    border: 2px solid rgba(255, 248, 248, 0.788);
+    color: #000000;
 }
 .fade {
     width: 100vw;

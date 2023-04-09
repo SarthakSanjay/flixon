@@ -16,7 +16,7 @@ const apiPaths = {
 function fetchMovieVideos(movieID){
    fetch(`${baseUrl}/movie/${movieID}/videos?api_key=${apiKey}&language=en-US`)
    .then(res => {
-    console.log(res)
+    // console.log(res)
    })
 
 
@@ -78,10 +78,12 @@ function buildMoviesSection(list , categoryName){
     const moviesContainer = document.getElementById("movieContainer")
 
    const moviesListHTML =  list.map((item)=>{
-      
+    console.log(item)
+        let imgSrc = `${imgPath}${item.poster_path}`
+        
         return `
         <div class="movie-item" id="movie-item">
-        <img  class="move-item-img" src="${imgPath}${item.poster_path}" alt="${item.title}" onmouseover="displayPopup()" onclick="searchMovieTrailer('${item.title}')" />
+        <img  class="move-item-img" src="${imgSrc}" alt="${item.title}" onclick="createAndDisplayMovieDetailPopup('${item.title}' ,' ${imgSrc}')" onclick="searchMovieTrailer('${item.title}')" />
        
         </div>
         `
@@ -106,9 +108,42 @@ function buildMoviesSection(list , categoryName){
 }
 
 
+function createAndDisplayMovieDetailPopup(title , movieImage){
+    const popup = document.createElement("div")
+    popup.className = "pop-up-div"
+    popup.innerHTML = `
+    <div class="popup-content">
+    <div class='popup-movie-image'>
+    <img src="${movieImage}" />
+    </div>
+    <div class="popup-movie-details">
+    <button id='closeBtn'>x</button>
+        <h1 class="movie-title">${title}</h1>
+    </div>
+    </div>
+    `
+    disableScroll()
+    document.body.appendChild(popup)
+    document.getElementById('closeBtn').addEventListener('click',()=>{
+        document.body.removeChild(popup)
+        enableScroll()
+    
+    })
+}
 
 
-
+// Disable scrolling
+function disableScroll() {
+    document.body.style.overflow = 'hidden';
+    // document.body.style.position = 'fixed';
+  }
+  
+  // Enable scrolling
+  function enableScroll() {
+    document.body.style.overflow = null;
+    // document.body.style.position = null;
+  }
+  
 
 
 // function fetchVideo(fetchVideo , videoID){
