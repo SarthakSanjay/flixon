@@ -121,6 +121,7 @@ function createAndDisplayMovieDetailPopup(title, movieImage, desc , rating) {
             <button id='closeBtn'>x</button>
             <h1 class="movie-title">${title}</h1>
             <p class="desc">${desc}</p>
+            <div id="btnAndRating">
             <button class="watchBtn">Watch</button>
         <div class="progress">
          <svg>
@@ -128,8 +129,14 @@ function createAndDisplayMovieDetailPopup(title, movieImage, desc , rating) {
              <circle class="progress-bar" cx="50%" cy="50%" r="40"></circle>
         </svg>
          <div class="progress-value">${rating}</div>
-    </div>
-
+         <span id='like'>Liked This Movie!</span>
+         </div>
+         </div>
+        <div id="addOns">
+            <div>fav</div>
+            <div>watch later</div>
+            <div>fav</div>
+        </div>
     </div>
     </div>
     `

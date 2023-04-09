@@ -323,7 +323,7 @@ body {
     /* display: none; */
 }
 .popup-content{
-    height: 80%;
+    min-height: 80%;
     width: 80%;
     background-color: #00000097;
     border-radius: 20px;
@@ -374,6 +374,10 @@ body {
     text-align: justify;
 
 }
+#btnAndRating{
+    display: flex;
+    width: 100%;
+}
 .watchBtn{
     background-color: rgb(214, 62, 62);
     border: 1px solid rgb(214, 62, 62);
@@ -390,10 +394,9 @@ body {
 }
 /* =========== */
 .progress {
-    position: absolute;
-    width: 100%;
+     position: relative;
     height: 100px;
-    margin: 50px auto;
+    margin: 20px auto;
     text-align: center;
     display: inline-block;
   }
@@ -412,7 +415,7 @@ body {
   
   .progress-bar {
     fill: none;
-    stroke: #ff9900;
+    stroke: rgb(214, 62, 62);
     stroke-width: 4;
     stroke-dasharray: 251.2; /* circumference of the circle */
     stroke-dashoffset: 251.2; /* set to circumference to hide the progress bar initially */
@@ -427,7 +430,17 @@ body {
     font-weight: bold;
     font-size: 20px;
   }
-  
+  #addOns{
+    /* width: 100%; */
+    border: 1px solid red;
+    height: 100px;
+    margin-top: 15px;
+    width: 90%;
+    margin-left: 10%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
 /* =========== */
 .fade {
     width: 100vw;
