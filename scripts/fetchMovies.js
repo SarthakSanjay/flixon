@@ -3,13 +3,15 @@
 const apiKey = "9dafab561b71196c6c57491f4cd20519"
 const baseUrl = "https://api.themoviedb.org/3"
 const imgPath = "https://image.tmdb.org/t/p/original"
+let contentType = "movie"
+
 
 
 // Define the API paths for different data we want to fetch
 const apiPaths = {
-    fetchCategories: `${baseUrl}/genre/movie/list?api_key=${apiKey}`,
-    fetchMovieList: (id) => `${baseUrl}/discover/movie?api_key=${apiKey}&with_genres=${id}`,
-    fetchTrending: `${baseUrl}/trending/movie/day?api_key=${apiKey}&language-en-US`,
+    fetchCategories: `${baseUrl}/genre/${contentType}/list?api_key=${apiKey}`,
+    fetchMovieList: (id) => `${baseUrl}/discover/${contentType}?api_key=${apiKey}&with_genres=${id}`,
+    fetchTrending: `${baseUrl}/trending/${contentType}/day?api_key=${apiKey}&language-en-US`,
 }
 
 
@@ -69,8 +71,8 @@ async function buildMoviesSection(list, categoryName) {
       let rating = Math.floor(item.vote_average * 10)
       let title = item.title 
       return `
-      <div class="movie-item" id="movie-item" onclick="createAndDisplayMovieDetailPopup('${item.title }' ,' ${imgSrc}' , '${description}','${rating}','${trailerUrl}'  )">
-        <!--  <img  class="move-item-img" src='${imgSrc}' alt='${item.title }' onclick="createAndDisplayMovieDetailPopup('${item.title }' ,' ${imgSrc}' , '${description}','${rating}'  )"  /> -->
+      <div class="movie-item" id="movie-item" >
+        <img  class="move-item-img" src='${imgSrc}' alt='${item.title }' onclick="createAndDisplayMovieDetailPopup('${item.title }' ,' ${imgSrc}' , '${description}','${rating}','${trailerUrl}'  )"  /> 
       </div>
       `
     }));
@@ -158,21 +160,19 @@ function enableScroll() {
 function fetchTrendingMovies() {
     fetchAndBuildMovieSection(apiPaths.fetchTrending, "Trending Now")
         .then(list => {
-            console.log(list)
+            // console.log(list)
             let movieItem = Math.floor(Math.random() * list.length)
             buildBannerSection(list[movieItem])
         }).catch(err => { console.log(err) })
 }
 
-
-
-
-
-
-
-function buildBannerSection(movie) {
+ async function buildBannerSection(movie) {
+    console.log(movie)
     const bannerContainer = document.getElementById('bannerCont')
     let imageUrl = `${imgPath}${movie.backdrop_path}`
+    let posterUrl = `${imgPath}${movie.poster_path}`
+    let bannerVideoUrl = await getMovieTrailer(movie.id)
+    let rating = Math.floor(movie.vote_average * 10)
     bannerContainer.style.backgroundImage = `url(${imageUrl})`
     // console.log(movie)
     const contentDiv = document.createElement('contentDiv')
@@ -189,8 +189,8 @@ function buildBannerSection(movie) {
     }</p>
     <p class="movie-desc">${movie.overview.split(" ").slice(0, 20).join(" ")}....</p>
     <div class="banner-btn">
-      <button id="play"><img class="icon" src="/images/play.png" />Play</button>
-      <button id="more-info"><img class="icon" src="/images/info.png" />more-info</button>
+    <a href="${bannerVideoUrl}">  <button id="play"><img class="icon" src="/images/play.png" />Play</button></a>
+    <button id="more-info" onclick="createAndDisplayMovieDetailPopup('${mtitle }' ,' ${posterUrl}' , '${movie.overview}','${rating}','${bannerVideoUrl}'  )" ><img class="icon" src="/images/info.png" />more-info</button>
     </div>
     `
     bannerContainer.appendChild(contentDiv)
@@ -229,16 +229,20 @@ function getMovieTrailer(movieId) {
 
 
 // Add an event listener to run the fetchAndBuildAllSections function when the page loads
-window.addEventListener('load', () => {
-    const loadingIndicator = document.getElementById('spinner');
-    loadingIndicator.style.display = 'block';
-    fetchTrendingMovies()
-    fetchAndBuildAllSections()
 
-    setTimeout(() => {
-        loadingIndicator.style.display = 'none';
-    }, 1000)
-})
+
+
+    window.addEventListener('load', () => {
+        const loadingIndicator = document.getElementById('spinner');
+        loadingIndicator.style.display = 'block';
+        fetchTrendingMovies()
+        fetchAndBuildAllSections()
+    
+        setTimeout(() => {
+            loadingIndicator.style.display = 'none';
+        }, 1000)
+    })
+
 
 window.addEventListener("scroll", function () {
     const navBar = document.querySelector(".navbar")
