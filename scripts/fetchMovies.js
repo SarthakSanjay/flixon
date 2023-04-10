@@ -1,41 +1,32 @@
 //https://api.themoviedb.org/3/movie/550?api_key=9dafab561b71196c6c57491f4cd20519
-
 // Set the API key and base URL for the MovieDB API
 const apiKey = "9dafab561b71196c6c57491f4cd20519"
 const baseUrl = "https://api.themoviedb.org/3"
 const imgPath = "https://image.tmdb.org/t/p/original"
+
+
 // Define the API paths for different data we want to fetch
 const apiPaths = {
     fetchCategories: `${baseUrl}/genre/movie/list?api_key=${apiKey}`,
     fetchMovieList: (id) => `${baseUrl}/discover/movie?api_key=${apiKey}&with_genres=${id}`,
-    fetchTrending: `${baseUrl}/trending/all/day?api_key=${apiKey}&language-en-US`,
-    searchYoutube: (query) => `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${query}&key=AIzaSyA3Ph5BiuAUdUK7RhGqE51GApYj-iao5Ww`
-    // fetchMovieVideo:(movieID) => `${baseUrl}/movie/${movieID}/videos?api_key=${apiKey}&language=en-US`
+    fetchTrending: `${baseUrl}/trending/movie/day?api_key=${apiKey}&language-en-US`,
 }
 
-function fetchMovieVideos(movieID) {
-    fetch(`${baseUrl}/movie/${movieID}/videos?api_key=${apiKey}&language=en-US`)
-        .then(res => {
-            // console.log(res)
-        })
 
 
-}
 // Define an async function to fetch data from the API
 const fetchData = async () => {
-
     // Use the fetch function to make a GET request to the API
     let data = await fetch(apiPaths.fetchCategories)
     // Use the json function to parse the response data as JSON
     let fetchData = await data.json()
-    // Log the fetched data to the console
-    // console.log(fetchData)
     // Return the fetched data
-
     return fetchData
 }
-
 // Define a function to fetch and build all sections of the page
+
+
+
 function fetchAndBuildAllSections() {
     // Use the fetch function to make a GET request to the API
     fetch(apiPaths.fetchCategories)
@@ -44,11 +35,6 @@ function fetchAndBuildAllSections() {
         // Extract the movie genres from the response data
         .then(res => {
             const categories = res.genres
-            // Map over the movie genres and return an array of genre names
-            // movies.map((obj =>{
-            //     console.log(obj.name)
-            //     return obj.name
-            // }))
             if (Array.isArray(categories) && categories.length)
                 categories.forEach(category => {
                     fetchAndBuildMovieSection(apiPaths.fetchMovieList(category.id), category.name)
@@ -61,7 +47,6 @@ function fetchAndBuildAllSections() {
 
 
 function fetchAndBuildMovieSection(fetchData, category) {
-    // console.log(fetchData +" " + category)
     return fetch(fetchData)
         .then(res => res.json())
         .then(res => {
@@ -73,43 +58,39 @@ function fetchAndBuildMovieSection(fetchData, category) {
         })
         .catch(err => console.log(err))
 }
-function buildMoviesSection(list, categoryName) {
+
+async function buildMoviesSection(list, categoryName) {
 
     const moviesContainer = document.getElementById("movieContainer")
-    const moviesListHTML = list.map((item) => {
-        // console.log(item)
-        let imgSrc = `${imgPath}${item.poster_path}`
-        let description = item.overview
-        let rating = Math.floor(item.vote_average * 10)
-        return `
-        <div class="movie-item" id="movie-item">
-        <img  class="move-item-img" src="${imgSrc}" alt="${item.title}" onclick="createAndDisplayMovieDetailPopup('${item.title}' ,' ${imgSrc}' , '${description}','${rating}' )" onclick="searchMovieTrailer('${item.title}')" />
-       
-        </div>
-        `
-    }).join('')
-
-    // <a href="${apiPaths.fetchMovieVideo(item.id)}"></a>
-    // 6/4/23
-    // document.getElementById("title")
+    const moviesListHTML = await Promise.all(list.map(async (item) => {
+      const trailerUrl = await getMovieTrailer(item.id);
+      let imgSrc = `${imgPath}${item.poster_path}`
+      let description = item.overview
+      let rating = Math.floor(item.vote_average * 10)
+      let title = item.title 
+      return `
+      <div class="movie-item" id="movie-item" onclick="createAndDisplayMovieDetailPopup('${item.title }' ,' ${imgSrc}' , '${description}','${rating}','${trailerUrl}'  )">
+        <!--  <img  class="move-item-img" src='${imgSrc}' alt='${item.title }' onclick="createAndDisplayMovieDetailPopup('${item.title }' ,' ${imgSrc}' , '${description}','${rating}'  )"  /> -->
+      </div>
+      `
+    }));
+    
     const movieSectionHTML = `
-        <h1 id="title">${categoryName}</h1><span>Explore</span>
+      <h1 id="title">${categoryName}</h1><span>Explore</span>
       <div class="movies-row">
-        ${moviesListHTML}
+        ${moviesListHTML.join('')}
       </div>
     `
-    // console.log(movieSectionHTML)
     const div = document.createElement("div")
     div.id = "moviePanel"
     div.innerHTML = movieSectionHTML
     //append div into movies container
     moviesContainer.append(div)
+  }
+  
 
-}
-
-
-function createAndDisplayMovieDetailPopup(title, movieImage, desc , rating) {
-    console.log(title, desc)
+async function createAndDisplayMovieDetailPopup(title, movieImage, desc , rating , videoUrl ) {
+    // console.log(videoUrl)
     const popup = document.createElement("div")
     popup.className = "pop-up-div"
     popup.innerHTML = `
@@ -122,7 +103,7 @@ function createAndDisplayMovieDetailPopup(title, movieImage, desc , rating) {
             <h1 class="movie-title">${title}</h1>
             <p class="desc">${desc}</p>
             <div id="btnAndRating">
-            <button class="watchBtn">Watch</button>
+          <a href="${videoUrl}">  <button class="watchBtn">Watch</button></a>
         <div class="progress">
          <svg>
              <circle class="progress-ring" cx="50%" cy="50%" r="40"></circle>
@@ -174,12 +155,10 @@ function enableScroll() {
 
 
 
-// function fetchVideo(fetchVideo , videoID){
-//     return apiPaths.fetchMovieVideo
-// }
 function fetchTrendingMovies() {
     fetchAndBuildMovieSection(apiPaths.fetchTrending, "Trending Now")
         .then(list => {
+            console.log(list)
             let movieItem = Math.floor(Math.random() * list.length)
             buildBannerSection(list[movieItem])
         }).catch(err => { console.log(err) })
@@ -206,7 +185,8 @@ function buildBannerSection(movie) {
     }
     contentDiv.innerHTML = `
     <h1 id="movie-title">${mtitle}</h1>
-    <p id="rating">${movie.release_date ? movie.release_date : movie.first}</p>
+    <p id="rating">${movie.release_date ? movie.release_date : movie.first_air_date
+    }</p>
     <p class="movie-desc">${movie.overview.split(" ").slice(0, 20).join(" ")}....</p>
     <div class="banner-btn">
       <button id="play"><img class="icon" src="/images/play.png" />Play</button>
@@ -217,22 +197,33 @@ function buildBannerSection(movie) {
 }
 //movie trailer
 
-function searchMovieTrailer(movieName) {
-    if (!movieName) return;
-
-    fetch(apiPaths.searchYoutube(movieName))
-        .then(res => res.json())
-        .then(res => {
-            console.log(res)
-            const bestSearchResult = res.items[0]
-            // const ytURL = `https://www.youtube.com/watch?v=${bestSearchResult.id.videoId}`
-            // console.log(ytURL)
-
-        })
-        .catch(err => console.log(err))
-
-
-}
+function getMovieTrailer(movieId) {
+    // Construct the API request URL to fetch the videos for the specified movie
+    const url = `https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${apiKey}`;
+  
+    // Make the API request and parse the response as JSON
+    return fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        // Extract the trailer URL from the response (if available)
+        let trailerUrl = "";
+        for (let video of data.results) {
+          if (video.type === "Trailer") {
+            trailerUrl = `https://www.youtube.com/watch?v=${video.key}`;
+            // console.log(trailerUrl)
+            break;
+          }
+        }
+  
+        // Return the trailer URL (or an empty string if no trailer is available)
+        return trailerUrl;
+      })
+      .catch(error => {
+        console.error("Error fetching movie videos:", error);
+        return ""; // Return an empty string if an error occurs
+      });
+  }
+  
 
 //movie trailer
 
