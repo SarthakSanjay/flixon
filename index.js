@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword ,signInWithEmailAndPassword  } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-auth.js";
+import { getAuth, createUserWithEmailAndPassword ,signInWithEmailAndPassword , signOut  } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-auth.js";
   // TODO: Add SDKs for Firebase products that you want to use
   // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -98,3 +98,20 @@ const auth = getAuth();
       }
     });
   })
+
+  document.getElementById("signOut").addEventListener("click", function() {
+    // console.log("signout button clicked")
+    signOut(auth)
+      .then(() => {
+        // Sign-out successful.
+        console.log('User signed out successfully');
+        // Redirect to the login page or home page
+        window.location.href = "login.html";
+      })
+      .catch((error) => {
+        // An error happened.
+        console.error('Error signing out:', error);
+      });
+    // window.location.href = "login.html";
+  });
+  
