@@ -70,7 +70,7 @@ async function buildMoviesSection(list, categoryName) {
       let title = item.title 
       return `
       <div class="movie-item" id="movie-item" onclick="createAndDisplayMovieDetailPopup('${item.title }' ,' ${imgSrc}' , '${description}','${rating}','${trailerUrl}'  )">
-        <!--  <img  class="move-item-img" src='${imgSrc}' alt='${item.title }' onclick="createAndDisplayMovieDetailPopup('${item.title }' ,' ${imgSrc}' , '${description}','${rating}'  )"  /> -->
+    <img  class="move-item-img" src='${imgSrc}' alt='${item.title }' onclick="createAndDisplayMovieDetailPopup('${item.title }' ,' ${imgSrc}' , '${description}','${rating}'  )"  /> 
       </div>
       `
     }));
