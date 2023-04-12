@@ -263,6 +263,7 @@ body {
     /* transform: scale(1.2 , 1.2); */
     transition: transform 0.2s ease-in-out;
     position: relative;
+    
 }
 .movieContainer img {
     width: 150px;
@@ -279,22 +280,7 @@ body {
 }
 
 
-/* .overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 500px;
-  height: 500px;
-  background-color: rgb(0, 0, 0);
-  display: none;
-  transition: all 0.3s ease-in-out;
 
-}
-
-.movie-item:hover .overlay {
-  z-index: 10;
-  display: block;
-} */
 
 #trending {
     /* border: 1px solid blueviolet; */

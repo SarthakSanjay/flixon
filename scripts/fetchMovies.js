@@ -71,8 +71,8 @@ async function buildMoviesSection(list, categoryName) {
       let rating = Math.floor(item.vote_average * 10)
       let title = item.title 
       return `
-      <div class="movie-item" id="movie-item" >
-        <img  class="move-item-img" src='${imgSrc}' alt='${item.title }' onclick="createAndDisplayMovieDetailPopup('${item.title }' ,' ${imgSrc}' , '${description}','${rating}','${trailerUrl}'  )"  /> 
+      <div class="movie-item" id="movie-item" onclick="createAndDisplayMovieDetailPopup('${item.title }' ,' ${imgSrc}' , '${description}','${rating}','${trailerUrl}'  )">
+         <img  class="move-item-img" src='${imgSrc}' alt='${item.title }' onclick="createAndDisplayMovieDetailPopup('${item.title }' ,' ${imgSrc}' , '${description}','${rating}'  )"  />
       </div>
       `
     }));
