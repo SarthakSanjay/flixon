@@ -115,22 +115,30 @@ async function createAndDisplayMovieDetailPopup(title, movieImage, desc , rating
          <span id='like'>Liked This Movie!</span>
          </div>
          </div>
-        <div id="addOns">
+    <!--  <div id="addOns">
             <div>fav</div>
             <div>watch later</div>
             <div>fav</div>
-        </div>
+        </div> -->
     </div>
     </div>
     `
     disableScroll()
     document.body.appendChild(popup)
-    document.getElementById('closeBtn').addEventListener('click', () => {
-        document.body.removeChild(popup)
-        enableScroll()
+    document.addEventListener('DOMContentLoaded', () => {
+        document.getElementById('closeBtn').addEventListener('click', () => {
+            document.body.removeChild(popup)
+          console.log("close button clicked")
+          enableScroll()
+        })
+      })
+      
+      moviesRating(rating)
 
-    })
-
+   
+    
+}
+function moviesRating(rating){
     let progressValue = rating; // set the progress to 75%
     let progressRing = document.querySelector('.progress-ring');
     let progressBar = document.querySelector('.progress-bar');
@@ -139,9 +147,7 @@ async function createAndDisplayMovieDetailPopup(title, movieImage, desc , rating
     
     progressValueDisplay.innerHTML = progressValue + '%';
     progressBar.style.strokeDashoffset = circumference - (progressValue / 100) * circumference;
-    
 }
-
 
 // Disable scrolling
 function disableScroll() {
