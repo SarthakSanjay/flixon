@@ -108,9 +108,9 @@ async function createAndDisplayMovieDetailPopup(title, movieImage, desc , rating
              <a href="${videoUrl}"><button class="watchBtn">Watch</button></a>
          <p id='like'><span id="rating">${rating}%</span> Liked This Movie!</p>
          </div>
-         </div>
          
-
+         
+         </div>
         </div>
     </div>
     `
@@ -213,6 +213,21 @@ function getMovieTrailer(movieId) {
 
 //movie trailer
 
+let profilepopup = false
+
+document.getElementById("user_profile").addEventListener('click' , ()=>{
+  if (!profilepopup) {
+    document.getElementById("inner-profile").style.display = "flex"
+    profilepopup = true
+} else {
+    document.getElementById("inner-profile").style.display = "none"
+    profilepopup = false
+  }
+})
+
+// document.getElementById("signout").addEventListener("click" , ()=>{
+//     window.location.href = "login.html"
+// })
 
 // Add an event listener to run the fetchAndBuildAllSections function when the page loads
 

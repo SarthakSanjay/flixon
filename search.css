@@ -1,0 +1,109 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+body{
+    background-color: #252525;
+    font-family: 'Poppins', sans-serif;
+}
+.search-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  #search-input {
+    width: 80%;
+    padding: 10px;
+    margin-top: 20px;
+    border-radius: 20px;
+    border: 1px solid rgba(137, 43, 226, 0.269);
+    background-color: rgba(137, 43, 226, 0.308);
+    outline: none;
+    color: white;
+  }
+  
+  .card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    max-width: 150px;
+    border: 2px solid blueviolet;
+    color: white;
+}
+
+.card img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+    border-radius: 10px;
+  }
+.card h3{
+
+}
+.card p{
+
+}
+  #search-results {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  .pop-up-div{
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    z-index: 10;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px) saturate(150%);
+    /* display: none; */
+}
+.popup-content{
+    min-height: 80%;
+    width: 80%;
+    background-color: #00000097;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: row;
+    color: #f1f1f1;
+    
+}
+.popup-movie-image{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 500px;
+}
+.popup-movie-image img{
+    border-radius: 20px;
+    /* height: 400px; */
+    width: 300px;
+}
+.popup-movie-details{
+    width: 100%;
+}
+#closeBtn{
+    height: 50px;
+    width: 50px;
+    border: 2px solid white;
+    color: white;
+    outline: none;
+    background:none;
+    border-radius: 50%;
+    font-size: 25px;
+    font-weight: bolder;
+    position: relative;
+    top: 2%;
+    left:90%;
+}
+#closeBtn:hover{
+    background-color: #f1f1f1;
+    border: 2px solid rgba(255, 248, 248, 0.788);
+    color: #000000;
+}

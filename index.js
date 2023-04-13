@@ -21,7 +21,7 @@ import { getAuth, createUserWithEmailAndPassword ,signInWithEmailAndPassword , s
 //   console.log(app)
 
 
-const auth = getAuth();
+const auth = getAuth(app);
 
 
   document.querySelector(".email").addEventListener("submit" , function(event){
@@ -99,8 +99,8 @@ const auth = getAuth();
     });
   })
 
-  document.getElementById("signOut").addEventListener("click", function() {
-    // console.log("signout button clicked")
+  document.getElementById("signout").addEventListener("click", function() {
+    console.log("signout button clicked")
     signOut(auth)
       .then(() => {
         // Sign-out successful.

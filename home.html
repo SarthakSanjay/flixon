@@ -1,42 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FLIXON</title>
-    <link rel="stylesheet" href="index.css">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FLIXON</title>
+  <link rel="stylesheet" href="index.css">
 </head>
+
 <body>
-  <section id="sidebar" class="open">
-   <div class="inner-sidebar"></div>
-   <div id="notch">></div>
-    
-  </section>
   <section class="hero">
     <div class="navbar">
-        <h1>FLIXON</h1>
-        <div id="nav-items">
-            <span class="nav-item" id="movies">Movies</span>
-            <span class="nav-item" id="series">Series</span>
-            <span class="nav-item" id="tvs">Tv Shows</span>
+      <h1>FLIXON</h1>
+      <div id="nav-items">
+        <span class="nav-item" id="movies">Movies</span>
+        <span class="nav-item" id="series">Series</span>
+        <span class="nav-item" id="tvs">Tv Shows</span>
+      </div>
+      <div id="user_profile">
+        <div id="inner-profile">
+          <p>Profile</p>
+          <p>History</p>
+          <p id="signout">Logout</p>
         </div>
-       <a href="./pages/userProfile.html"> <div class="profile" ></div></a>
+      </div>
 
     </div>
-    <div id="loading"><div id="spinner"></div></div>
-    
+    <div id="loading">
+      <div id="spinner"></div>
+    </div>
+
     <!-- banner -->
     <div class="banner" id="bannerCont">
       <div class="fade"></div>
     </div>
     <!-- banner -->
     <div class="movieContainer" id="movieContainer"></div>
-   
+
   </section>
- 
+
   <script src="./scripts/fetchMovies.js"></script>
   <script src="./scripts/home.js"></script>
-  <script src="./index.js" type="module" ></script>
+  <script src="index.js" type="module"></script>
 </body>
+
 </html>

@@ -88,6 +88,8 @@ form input{
 #btn{
     background-color: var(--button-color);
     width: 80%;
+    height: 50px;
+    border: none;
 }
 #btn:hover{
     background-color: rgb(85, 21, 146);
