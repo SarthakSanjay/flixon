@@ -72,7 +72,7 @@ async function buildMoviesSection(list, categoryName) {
       let title = item.title 
       return `
       <div class="movie-item" id="movie-item" onclick="createAndDisplayMovieDetailPopup('${item.title }' ,' ${imgSrc}' , '${description}','${rating}','${trailerUrl}'  )">
-         <img  class="move-item-img" src='${imgSrc}' alt='${item.title }' onclick="createAndDisplayMovieDetailPopup('${item.title }' ,' ${imgSrc}' , '${description}','${rating}'  )"  />
+         <img  class="move-item-img" src='${imgSrc}' alt='${item.title }'   )"  />
       </div>
       `
     }));
@@ -92,7 +92,7 @@ async function buildMoviesSection(list, categoryName) {
   
 
 async function createAndDisplayMovieDetailPopup(title, movieImage, desc , rating , videoUrl ) {
-    // console.log(videoUrl)
+    console.log(videoUrl)
     const popup = document.createElement("div")
     popup.className = "pop-up-div"
     popup.innerHTML = `
@@ -105,49 +105,28 @@ async function createAndDisplayMovieDetailPopup(title, movieImage, desc , rating
             <h1 class="movie-title">${title}</h1>
             <p class="desc">${desc}</p>
             <div id="btnAndRating">
-          <a href="${videoUrl}">  <button class="watchBtn">Watch</button></a>
-        <div class="progress">
-         <svg>
-             <circle class="progress-ring" cx="50%" cy="50%" r="40"></circle>
-             <circle class="progress-bar" cx="50%" cy="50%" r="40"></circle>
-        </svg>
-         <div class="progress-value">${rating}</div>
-         <span id='like'>Liked This Movie!</span>
+             <a href="${videoUrl}"><button class="watchBtn">Watch</button></a>
+         <p id='like'><span id="rating">${rating}%</span> Liked This Movie!</p>
          </div>
          </div>
-    <!--  <div id="addOns">
-            <div>fav</div>
-            <div>watch later</div>
-            <div>fav</div>
-        </div> -->
-    </div>
+         
+
+        </div>
     </div>
     `
     disableScroll()
     document.body.appendChild(popup)
-    document.addEventListener('DOMContentLoaded', () => {
-        document.getElementById('closeBtn').addEventListener('click', () => {
-            document.body.removeChild(popup)
-          console.log("close button clicked")
-          enableScroll()
-        })
-      })
-      
-      moviesRating(rating)
+    const closeBtn = document.getElementById('closeBtn')
+    closeBtn.addEventListener('click', () => {
+        document.body.removeChild(popup)
+        console.log("close button clicked")
+        enableScroll()
+    })
 
    
     
 }
-function moviesRating(rating){
-    let progressValue = rating; // set the progress to 75%
-    let progressRing = document.querySelector('.progress-ring');
-    let progressBar = document.querySelector('.progress-bar');
-    let progressValueDisplay = document.querySelector('.progress-value');
-    let circumference = progressRing.getTotalLength(); // get the circumference of the circle
-    
-    progressValueDisplay.innerHTML = progressValue + '%';
-    progressBar.style.strokeDashoffset = circumference - (progressValue / 100) * circumference;
-}
+
 
 // Disable scrolling
 function disableScroll() {
@@ -191,7 +170,7 @@ function fetchTrendingMovies() {
     }
     contentDiv.innerHTML = `
     <h1 id="movie-title">${mtitle}</h1>
-    <p id="rating">${movie.release_date ? movie.release_date : movie.first_air_date
+    <p id="releaseDate">${movie.release_date ? movie.release_date : movie.first_air_date
     }</p>
     <p class="movie-desc">${movie.overview.split(" ").slice(0, 20).join(" ")}....</p>
     <div class="banner-btn">
@@ -229,6 +208,7 @@ function getMovieTrailer(movieId) {
         return ""; // Return an empty string if an error occurs
       });
   }
+  
   
 
 //movie trailer

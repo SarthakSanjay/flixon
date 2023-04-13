@@ -83,8 +83,8 @@ const auth = getAuth();
       const user = userCredential.user;
       console.log(user);
       // Redirect to home page
-      window.location.href = "home.html";
       alert("you are now logged in");
+      window.location.href = "home.html";
     })
     .catch((error) => {
       const errorCode = error.code;
