@@ -6,6 +6,7 @@
 body{
     background-color: #252525;
     font-family: 'Poppins', sans-serif;
+    overflow-x: hidden;
 }
 .navbar {
 height: 50px;
@@ -164,4 +165,12 @@ align-items: center;
 
 .watchBtn:hover{
     background-color: rgb(188, 54, 54);
+}
+::-webkit-scrollbar {
+  width: 10px;
+  background-color: rgba(134, 53, 211, 0.587);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: blueviolet;
 }
