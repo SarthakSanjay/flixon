@@ -6,7 +6,7 @@ const searchInput = document.getElementById('search-input');
 const searchResults = document.getElementById('search-results');
 
 // Add event listener to the search input to trigger the search
-searchInput.addEventListener('input', (e) => {
+searchInput.addEventListener('input',async (e) => {
   // Get the search query from the input value
   const query = e.target.value;
   // Only search if the query is not empty
@@ -20,17 +20,17 @@ searchInput.addEventListener('input', (e) => {
         // Clear the previous search results
         searchResults.innerHTML = '';
         // Iterate through the search results and create a card for each movie
-        data.results.forEach(movie => {
+        data.results.forEach(async (movie) => {
           let rating = Math.floor(movie.vote_average * 10)
+          let videoUrl = await getMovieTrailer(movie.id)
          let imageUrl= `https://image.tmdb.org/t/p/original${movie.poster_path}`
           const card = document.createElement('div');
-          
           card.className = 'card';
           card.innerHTML = `
-             <div class="movie-item" id="movie-item" onclick="createAndDisplayMovieDetailPopup('${movie.title}', '${imageUrl}','${ movie.overview}' , '${rating}' )">
-           <img  src="${imageUrl}" alt='${movie.title }'   )"  />
+             <div class="movie-item" id="movie-item" onclick="createAndDisplayMovieDetailPopup('${movie.title}', '${imageUrl}','${ movie.overview}' , '${rating}')">
+           <img  src="${imageUrl}" alt='${movie.title }' ,"${videoUrl}   )"  />
          </div>
-            <h3>${movie.title}</h3>
+            <h3>${movie.title.split(" ").slice(0,2).join(" ")}</h3>
             <p>${movie.release_date}</p>
           `;
           // Add the card to the search results container
@@ -45,7 +45,7 @@ searchInput.addEventListener('input', (e) => {
 });
 
 
- function createAndDisplayMovieDetailPopup(title, movieImage, desc , rating  ) {
+async function createAndDisplayMovieDetailPopup(title, movieImage, desc ,rating ,video  ) {
   console.log("clicked")
   const popup = document.createElement("div")
   popup.className = "pop-up-div"
@@ -59,8 +59,8 @@ searchInput.addEventListener('input', (e) => {
           <h1 class="movie-title">${title}</h1>
           <p class="desc">${desc}</p>
           <div id="btnAndRating">
-           
-       <p id='like'><span id="rating">${rating}%</span> Liked This Movie!</p>
+          <p id='like'><span id="rating">${rating}%</span> Liked This Movie!</p>
+          <a href="${video}"><button class="watchBtn">Watch</button></a>
        </div>
        
        
@@ -76,7 +76,34 @@ searchInput.addEventListener('input', (e) => {
       console.log("close button clicked")
       enableScroll()
   })
-
- 
-  
 }
+async function getMovieTrailer(movieId) {
+  // Construct the API request URL to fetch the videos for the specified movie
+  const url = `https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${apiKey}`;
+
+  // Make the API request and parse the response as JSON
+  return fetch(url)
+    .then(response => response.json())
+    .then(data => {
+      // Extract the trailer URL from the response (if available)
+      let trailerUrl = "";
+      for (let video of data.results) {
+        if (video.type === "Trailer") {
+          trailerUrl = `https://www.youtube.com/watch?v=${video.key}`;
+          // console.log(trailerUrl)
+          break;
+        }
+      }
+
+      // Return the trailer URL (or an empty string if no trailer is available)
+      return trailerUrl;
+    })
+    .catch(error => {
+      console.error("Error fetching movie videos:", error);
+      return ""; // Return an empty string if an error occurs
+    });
+}
+
+document.getElementById('back').addEventListener("click",()=>{
+  window.location.href = "/home/home.html"
+})

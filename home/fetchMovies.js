@@ -169,8 +169,8 @@ function fetchTrendingMovies() {
         mtitle = movie.title ? movie.title : movie.original_name
     }
     contentDiv.innerHTML = `
-    <h1 id="movie-title">${mtitle}</h1>
-    <p id="releaseDate">${movie.release_date ? movie.release_date : movie.first_air_date
+    <h1 id="movie-title">${mtitle.split(" ").slice(0,5).join(" ")}</h1>
+    <p id="releaseDate">Released on: ${movie.release_date ? movie.release_date : movie.first_air_date
     }</p>
     <p class="movie-desc">${movie.overview.split(" ").slice(0, 20).join(" ")}....</p>
     <div class="banner-btn">
@@ -225,9 +225,9 @@ document.getElementById("user_profile").addEventListener('click' , ()=>{
   }
 })
 
-// document.getElementById("signout").addEventListener("click" , ()=>{
-//     window.location.href = "login.html"
-// })
+document.getElementById("search_btn").addEventListener("click" , ()=>{
+    window.location.href = "/search/search.html"
+})
 
 // Add an event listener to run the fetchAndBuildAllSections function when the page loads
 

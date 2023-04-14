@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FLIXON</title>
+  <link rel="stylesheet" href="home.css">
+</head>
+
+<body>
+  <section class="hero">
+    <div class="navbar">
+      <h1>FLIXON</h1>
+      <div id="nav-items">
+        <span class="nav-item" id="movies">Movies</span>
+        <span class="nav-item" id="series">Series</span>
+        <span class="nav-item" id="tvs">Tv Shows</span>
+      </div>
+      <button id="search_btn"><img src="/images/search.png"/></button>
+      <div>
+          <div id="user_profile">
+            <div id="inner-profile">
+              <p>Profile</p>
+              <p>History</p>
+             <button id="signout">Logout</button>
+            </div>
+          </div>
+      </div>
+
+    </div>
+    <div id="loading">
+      <div id="spinner"></div>
+    </div>
+
+    <!-- banner -->
+    <div class="banner" id="bannerCont">
+      <div class="fade"></div>
+    </div>
+    <!-- banner -->
+    <div class="movieContainer" id="movieContainer"></div>
+
+  </section>
+  <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-auth.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyCxaCZsBFFrw9g21JmnyX4W2bNRMpRsaWA",
+      authDomain: "flixon-9f63b.firebaseapp.com",
+      projectId: "flixon-9f63b",
+      storageBucket: "flixon-9f63b.appspot.com",
+      messagingSenderId: "467380563632",
+      appId: "1:467380563632:web:63df2d08a980ef1382d575"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+
+
+    //   console.log(app)
+
+
+    const auth = getAuth(app);
+    document.getElementById("signout").addEventListener("click", function (event) {
+      event.preventDefault();
+      console.log("signout button clicked")
+      signOut(auth)
+        .then(() => {
+          // Sign-out successful.
+          console.log('User signed out successfully');
+          // Redirect to the login page or home page
+          window.location.href = "/login/login.html";
+        })
+        .catch((error) => {
+          // An error happened.
+          console.error('Error signing out:', error);
+        });
+      // window.location.href = "login.html";
+    });
+
+  </script>
+  <script src="fetchMovies.js"></script>
+  <!-- <script src="./scripts/home.js"></script> -->
+  <!-- <script src="index.js" type="module"></script> -->
+</body>
+
+</html>

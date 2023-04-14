@@ -15,103 +15,89 @@ import { getAuth, createUserWithEmailAndPassword ,signInWithEmailAndPassword , s
   };
 
   // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-
-
-//   console.log(app)
-
+const app = initializeApp(firebaseConfig);
 
 const auth = getAuth(app);
 
 
-  document.querySelector(".email").addEventListener("submit" , function(event){
-    event.preventDefault();
-    let email = document.getElementById("email").value
-    let password = document.getElementById("password").value
+ // Get the form element
+const form = document.querySelector(".email");
 
-    function isValidEmail(email) {
-      // Regular expression for email validation
-      const emailRegex = /\S+@\S+\.\S+/;
-      return emailRegex.test(email);
-    }
-    
-    // Usage
-  //   const email = 'example@example.com';
-    if (isValidEmail(email)) {
-      // Email is valid
-      document.getElementById("email").style.border = "1px solid green"
-      console.log("valid")
+// Add the submit event listener to the form
+form.addEventListener("submit", function (event) {
+  event.preventDefault();
+
+  // Get the email and password values
+  let email = document.getElementById("email").value;
+  let password = document.getElementById("password").value;
+
+  // Validate the email
+  function isValidEmail(email) {
+    const emailRegex = /\S+@\S+\.\S+/;
+    return emailRegex.test(email);
+  }
+
+  // Check if the email is valid
+  if (isValidEmail(email)) {
+    document.getElementById("email").style.border = "1px solid green";
+    console.log("valid");
   } else {
-      // Email is invalid
-      document.getElementById("email").style.outline = "red"
-      console.log("invalid email")
-    }
+    document.getElementById("email").style.outline = "1px solid red";
+    console.log("invalid email");
+    return; // Stop the function execution if the email is invalid
+  }
 
-
-
+  // Create user with email and password
   createUserWithEmailAndPassword(auth, email, password)
-  .then((userCredential) => {
-    // Signed in 
-    const user = userCredential.user;
-    console.log(user)
-    // Redirect to home page
-    window.location.href = "home.html";
-    alert("you are now registered")
-    // ...
-  })
-  .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    console.log(errorMessage)
-    alert("error")
-    if (errorCode === "auth/email-already-in-use") {
-      // Email is already registered, redirect to login page
-      window.location.href = "login.html";
-    }
-    // ..
-  });
-  })
-
-
-  document.getElementById("login").addEventListener("submit" , function(event){
-    event.preventDefault();
-    let email = document.getElementById("email").value
-    let password = document.getElementById("password").value
-    signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
-      // Signed in
       const user = userCredential.user;
       console.log(user);
-      // Redirect to home page
-      alert("you are now logged in");
-      window.location.href = "home.html";
+      window.location.href = "/home/home.html";
+      alert("you are now registered");
     })
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
-      if (errorCode === "auth/user-not-found" || errorCode === "auth/wrong-password") {
-        // Email is not registered or password is wrong, show error message
-        alert("Invalid email or password. Please try again.");
-      }  else {
-        console.log(errorMessage);
-        alert("Error. Please try again.");
+      console.log(errorMessage);
+      alert(errorMessage);
+      if (errorCode === "auth/email-already-in-use") {
+        window.location.href = "login.html";
       }
     });
-  })
-
-  document.getElementById("signout").addEventListener("click", function() {
-    console.log("signout button clicked")
-    signOut(auth)
-      .then(() => {
-        // Sign-out successful.
-        console.log('User signed out successfully');
-        // Redirect to the login page or home page
-        window.location.href = "login.html";
+});
+  function loginUser(email, password) {
+    if (!email || !password) {
+      alert("Please enter your email and password.");
+      return;
+    }
+  
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+          // Signed in
+      const user = userCredential.user;
+      console.log(user);
+      // Redirect to home page
+      alert("you are now logged in");
+      window.location.href = "/home/home.html";
       })
       .catch((error) => {
-        // An error happened.
-        console.error('Error signing out:', error);
-      });
-    // window.location.href = "login.html";
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        if (errorCode === "auth/user-not-found" || errorCode === "auth/wrong-password") {
+          alert("Invalid email or password. Please try again.");
+        } else if (errorCode === "auth/invalid-email") {
+          alert("Invalid email format. Please enter a valid email.");
+        } else if (errorCode === "auth/user-disabled") {
+          alert("Your account has been disabled. Please contact support.");
+        } else {
+          console.log(errorMessage);
+          alert(errorMessage);
+        }      });
+  }
+  
+  document.querySelector(".login").addEventListener("submit", function () {
+    let email = document.getElementById("login_email").value;
+    let password = document.getElementById("login_password").value;
+    loginUser(email, password);
   });
   

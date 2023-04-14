@@ -4,8 +4,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login/Signup</title>
-    <link rel="stylesheet" href="./styles/signup.css">
+    <title>Register</title>
+    <link rel="stylesheet" href="index.css">
+    <!-- Firebase App -->
+<script src="https://www.gstatic.com/firebasejs/9.6.8/firebase-app.js"></script>
+<!-- Firebase Auth -->
+<script src="https://www.gstatic.com/firebasejs/9.6.8/firebase-auth.js"></script>
+
 </head>
 <body>
     <section id="outer-hero">
@@ -14,18 +19,17 @@
             <span id="logo" class="neon">FLIXON</span>
            
               
-            <a href="./login.html" ><button id="signin">Sign In</button></a>
+            <a href="login/login.html" ><button id="signin">login</button></a>
         </div>
         <div class="inner-hero">
             <h1>Unlimited movies, TV shows and more.</h1>
             <h2>Watch anywhere. Cancel anytime.</h2>
             <form class="email"  >
-                 <!-- //firebase not allows method -->
-                <h3>Ready to watch? Enter your email to create or restart your membership.</h3>
+                <h3>Ready to watch? Enter your email to Register!</h3>
                 <div class="inner-email">
                     <input id="email" type="email" placeholder="Email address" required>
                     <input id="password" type="password" placeholder="Email password" required>
-                    <button id="register" type="submit">Get Started></button>
+                    <button id="register" type="submit">Get Registered></button>
                 </div>
             </form>
         </div>
@@ -62,20 +66,6 @@
             <h1>Enjoy on your TV.</h1>
             <p>Watch on smart TVs, PlayStation, Xbox, Chromecast, Apple TV, Blu-ray players and more.</p>
         </div>
-    </section>
-    <hr>
-    
-    <section class="faqs">
-        <h1>Frequently Asked Questions.</h1>
-        <div class="accordian"></div>
-        <div class="email">
-            <h3>Ready to watch? Enter your email to create or restart your membership.</h3>
-            <!-- <form class="inner-email">
-                <input id="email" type="email" placeholder="Email address">
-                <button id="register">Get Started></button>
-            </form> -->
-        </div>
-
     </section>
     <hr>
     <section class="footer">
