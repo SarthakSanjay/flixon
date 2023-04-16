@@ -61,43 +61,8 @@ form.addEventListener("submit", function (event) {
       console.log(errorMessage);
       alert(errorMessage);
       if (errorCode === "auth/email-already-in-use") {
-        window.location.href = "login.html";
+        window.location.href = "/home/home.html";
       }
     });
 });
-  function loginUser(email, password) {
-    if (!email || !password) {
-      alert("Please enter your email and password.");
-      return;
-    }
-  
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-          // Signed in
-      const user = userCredential.user;
-      console.log(user);
-      // Redirect to home page
-      alert("you are now logged in");
-      window.location.href = "/home/home.html";
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        if (errorCode === "auth/user-not-found" || errorCode === "auth/wrong-password") {
-          alert("Invalid email or password. Please try again.");
-        } else if (errorCode === "auth/invalid-email") {
-          alert("Invalid email format. Please enter a valid email.");
-        } else if (errorCode === "auth/user-disabled") {
-          alert("Your account has been disabled. Please contact support.");
-        } else {
-          console.log(errorMessage);
-          alert(errorMessage);
-        }      });
-  }
-  
-  document.querySelector(".login").addEventListener("submit", function () {
-    let email = document.getElementById("login_email").value;
-    let password = document.getElementById("login_password").value;
-    loginUser(email, password);
-  });
   

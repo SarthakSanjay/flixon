@@ -6,16 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>login</title>
     <link rel="stylesheet" href="login.css">
-    <!-- Firebase App -->
-<script src="https://www.gstatic.com/firebasejs/9.6.8/firebase-app.js"></script>
-<!-- Firebase Auth -->
-<script src="https://www.gstatic.com/firebasejs/9.6.8/firebase-auth.js"></script>
+
 
 </head>
 <body>
    <section class="signup">
     <div class="hero">
-        <form class="login">
+        <form id="login">
             <h1>Login</h1>
             <input id="login_email" type="email" placeholder="Enter your email" />
             <input id="login_password" type="password" placeholder="Enter password" />
@@ -24,6 +21,68 @@
         </form>
     </div>
    </section>
-   <script src="/index.js" type="module"></script>
+   <script  type="module">
+    // Import the functions you need from the SDKs you need
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword ,signInWithEmailAndPassword , signOut  } from "https://www.gstatic.com/firebasejs/9.18.0/firebase-auth.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyCxaCZsBFFrw9g21JmnyX4W2bNRMpRsaWA",
+    authDomain: "flixon-9f63b.firebaseapp.com",
+    projectId: "flixon-9f63b",
+    storageBucket: "flixon-9f63b.appspot.com",
+    messagingSenderId: "467380563632",
+    appId: "1:467380563632:web:63df2d08a980ef1382d575"
+  };
+
+  // Initialize Firebase
+const app = initializeApp(firebaseConfig);
+
+const auth = getAuth(app);
+function loginUser(email, password) {
+    if (!email || !password) {
+      alert("Please enter your email and password.");
+      return;
+    }
+  
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+          // Signed in
+      const user = userCredential.user;
+      console.log(user);
+      // Redirect to home page
+      alert("you are now logged in");
+      window.location.href = "/home/home.html";
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        if (errorCode === "auth/user-not-found" || errorCode === "auth/wrong-password") {
+          alert("Invalid email or password. Please try again.");
+        } else if (errorCode === "auth/invalid-email") {
+          alert("Invalid email format. Please enter a valid email.");
+        } else if (errorCode === "auth/user-disabled") {
+          alert("Your account has been disabled. Please contact support.");
+        } else {
+          console.log(errorMessage);
+          alert(errorMessage);
+        }      });
+  }
+  
+  // document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById("login").addEventListener("submit", function () {
+      let email = document.getElementById("login_email").value;
+      let password = document.getElementById("login_password").value;
+      loginUser(email, password);
+      console.log(email,password)
+    });
+  // });
+  
+  
+
+   </script>
 </body>
 </html>
