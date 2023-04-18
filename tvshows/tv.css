@@ -262,7 +262,6 @@ body {
     height: 225px;
     border-radius: 10px;
     margin: 5px 12px;
-    cursor: pointer;
 }
 
 .movie-item:hover {

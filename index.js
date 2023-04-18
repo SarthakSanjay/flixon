@@ -59,9 +59,9 @@ form.addEventListener("submit", function (event) {
       const errorCode = error.code;
       const errorMessage = error.message;
       console.log(errorMessage);
-      alert(errorMessage);
+      alert("Already registered!");
       if (errorCode === "auth/email-already-in-use") {
-        window.location.href = "/home/home.html";
+        window.location.href = "/login/login.html";
       }
     });
 });

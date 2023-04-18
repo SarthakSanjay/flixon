@@ -120,7 +120,7 @@ Movie.insertMany(movies)
   .catch((err) => {
     console.error(err);
   });
-app.get("/api/movies", (req, res) => {
+app.get("/api/tvshows", (req, res) => {
   Movie.find()
     .limit(10)
     .then((movies) => {

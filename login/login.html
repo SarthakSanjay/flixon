@@ -73,7 +73,8 @@ function loginUser(email, password) {
   }
   
   // document.addEventListener("DOMContentLoaded", function() {
-    document.getElementById("login").addEventListener("submit", function () {
+    document.getElementById("login").addEventListener("submit", function (event) {
+      event.preventDefault();
       let email = document.getElementById("login_email").value;
       let password = document.getElementById("login_password").value;
       loginUser(email, password);
