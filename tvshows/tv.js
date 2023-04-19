@@ -62,17 +62,16 @@ function fetchAndBuildMovieSection(fetchData, category) {
 }
 
 async function buildMoviesSection(list, categoryName) {
-    // console.log(list);
+
     const moviesContainer = document.getElementById("movieContainer")
     const moviesListHTML = await Promise.all(list.map(async (item) => {
       const trailerUrl = await getMovieTrailer(item.id);
-      console.log(item);
       let imgSrc = `${imgPath}${item.poster_path}`
       let description = item.overview
       let rating = Math.floor(item.vote_average * 10)
       let title = item.title 
       return `
-      <div class="movie-item" id="movie-item" onclick="createAndDisplayMovieDetailPopup('${item.original_name }' ,' ${imgSrc}' , '${description}','${rating}','${trailerUrl}'  )">
+      <div class="movie-item" id="movie-item" onclick="createAndDisplayMovieDetailPopup('${item.title }' ,' ${imgSrc}' , '${description}','${rating}','${item.id}'  )">
          <img  class="move-item-img" src='${imgSrc}' alt='${item.title }'   )"  />
       </div>
       `
@@ -92,42 +91,97 @@ async function buildMoviesSection(list, categoryName) {
   }
   
 
-async function createAndDisplayMovieDetailPopup(title, movieImage, desc , rating , videoUrl ) {
+// async function createAndDisplayMovieDetailPopup(title, movieImage, desc , rating , videoUrl ) {
+//     console.log(videoUrl)
+//     const popup = document.createElement("div")
+//     popup.className = "pop-up-div"
+//     popup.innerHTML = `
+//     <div class="popup-content">
+//         <div class='popup-movie-image'>
+//             <img src="${movieImage}" />
+//         </div>
+//         <div class="popup-movie-details">
+//             <button id='closeBtn'>x</button>
+//             <h1 class="movie-title">${title}</h1>
+//             <p class="desc">${desc}</p>
+//             <div id="btnAndRating">
+//              <button id="watchTrailerBtn" class="watchBtn">Watch</button>
+//          <p id='like'><span id="rating">${rating}%</span> Liked This Movie!</p>
+//          </div>
+         
+         
+//          </div>
+//         </div>
+//     </div>
+//     `
+//     disableScroll()
+//     document.body.appendChild(popup)
+//     const closeBtn = document.getElementById('closeBtn')
+//     closeBtn.addEventListener('click', () => {
+//         document.body.removeChild(popup)
+//         console.log("close button clicked")
+//         enableScroll()
+//     })
+
+//     document.getElementById("watchTrailerBtn").addEventListener("click" ,function () {
+//         console.log("clicked");
+//         console.log(getMovieTrailer(videoUrl));
+//         const videoDiv = document.createElement('div')
+//         videoDiv.id = 'video_div'
+//         videoDiv.innerHTML = `
+//         <iframe width="560" height="315" src="https://www.youtube.com/embed/${getMovieTrailer(videoUrl)}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+//         `
+//         popup.appendChild(videoDiv)
+//       })
+   
+    
+// }
+
+async function createAndDisplayMovieDetailPopup(title, movieImage, desc, rating, videoUrl) {
     console.log(videoUrl)
     const popup = document.createElement("div")
     popup.className = "pop-up-div"
     popup.innerHTML = `
-    <div class="popup-content">
-        <div class='popup-movie-image'>
-            <img src="${movieImage}" />
+        <div class="popup-content">
+            <div class='popup-movie-image'>
+                <img src="${movieImage}" />
+            </div>
+            <div class="popup-movie-details">
+                <button id='closeBtn'>x</button>
+                <h1 class="movie-title">${title}</h1>
+                <p class="desc">${desc}</p>
+                <div id="btnAndRating">
+                    <button id="watchTrailerBtn" class="watchBtn">Watch</button>
+                    <p id='like'><span id="rating">${rating}%</span> Liked This Movie!</p>
+                </div>
+            </div>
         </div>
-        <div class="popup-movie-details">
-            <button id='closeBtn'>x</button>
-            <h1 class="movie-title">${title}</h1>
-            <p class="desc">${desc}</p>
-            <div id="btnAndRating">
-             <a href="${videoUrl}"><button class="watchBtn">Watch</button></a>
-             <p id='like'><span id="rating">${rating}%</span> Liked This Tv show!</p>
-         </div>
-         
-         
-         </div>
-        </div>
-    </div>
     `
     disableScroll()
     document.body.appendChild(popup)
-    const closeBtn = document.getElementById('closeBtn')
-    closeBtn.addEventListener('click', () => {
+    const closeBtn = document.getElementById("closeBtn")
+    closeBtn.addEventListener("click", () => {
         document.body.removeChild(popup)
         console.log("close button clicked")
         enableScroll()
     })
-   
+
+    document.getElementById("watchTrailerBtn").addEventListener("click", async function () {
+        console.log("clicked")
+        const videoId = await getMovieTrailer(videoUrl)
+        const videoDiv = document.createElement("div")
+        videoDiv.id = "video_div"
+        videoDiv.innerHTML = `
+        <button id='videoCloseBtn'>x</button>
+            <iframe width="1120" height="400" src="https://www.youtube.com/embed/${videoId}?autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        `
+        popup.appendChild(videoDiv)
+        document.getElementById("videoCloseBtn").addEventListener('click', ()=>{
+            popup.removeChild(videoDiv)
+
+        })
+    })
 }
-
-
-
 
 // Disable scrolling
 function disableScroll() {
@@ -164,7 +218,7 @@ function fetchTrendingMovies() {
     const contentDiv = document.createElement('contentDiv')
     contentDiv.id = "banner-content"
     if (movie.original_language === "en") {
-        mtitle = movie.original_name ? movie.original_name : movie.name
+        mtitle = movie.original_title ? movie.original_title : movie.name
     }
     else {
         mtitle = movie.title ? movie.title : movie.original_name
@@ -175,41 +229,66 @@ function fetchTrendingMovies() {
     }</p>
     <p class="movie-desc">${movie.overview.split(" ").slice(0, 20).join(" ")}....</p>
     <div class="banner-btn">
-    <a href="${bannerVideoUrl}">  <button id="play"><img class="icon" src="/images/play.png" />Play</button></a>
+   <button id="play"><img class="icon" src="/images/play.png" />Play</button>
     <button id="more-info" onclick="createAndDisplayMovieDetailPopup('${mtitle }' ,' ${posterUrl}' , '${movie.overview}','${rating}','${bannerVideoUrl}'  )" ><img class="icon" src="/images/info.png" />more-info</button>
     </div>
     `
     bannerContainer.appendChild(contentDiv)
+    document.getElementById("play").addEventListener("click", async function () {
+        console.log("clicked")
+        // const videoId = await getMovieTrailer(videoUrl)
+        const videoDiv = document.createElement("div")
+        videoDiv.id = "video_div"
+        videoDiv.innerHTML = `
+        <button id='videoCloseBtn'>x</button>
+            <iframe width="1120" height="400" src="https://www.youtube.com/embed/${bannerVideoUrl}?autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        `
+        bannerContainer.appendChild(videoDiv)
+        document.getElementById("videoCloseBtn").addEventListener('click', ()=>{
+            bannerContainer.removeChild(videoDiv)
+
+        })
+    })
 }
 //movie trailer
 
-function getMovieTrailer(movieId) {
-    // Construct the API request URL to fetch the videos for the specified movie
-    const url = `https://api.themoviedb.org/3/tv/${movieId}/videos?api_key=${apiKey}`;
+// function getMovieTrailer(movieId) {
+//     // Construct the API request URL to fetch the videos for the specified movie
+//     const url = `https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${apiKey}`;
   
-    // Make the API request and parse the response as JSON
-    return fetch(url)
-      .then(response => response.json())
-      .then(data => {
-        // Extract the trailer URL from the response (if available)
-        let trailerUrl = "";
-        for (let video of data.results) {
-          if (video.type === "Trailer") {
-            trailerUrl = `https://www.youtube.com/watch?v=${video.key}`;
-            // console.log(trailerUrl)
-            break;
-          }
-        }
+//     // Make the API request and parse the response as JSON
+//     return fetch(url)
+//       .then(response => response.json())
+//       .then(data => {
+//         // Extract the trailer URL from the response (if available)
+//         let trailerUrl = "";
+//         for (let video of data.results) {
+//           if (video.type === "Trailer") {
+//             // trailerUrl = `https://www.youtube.com/watch?v=${video.key}`;
+//             // // console.log(trailerUrl)
+//             // console.log(video.key);
+//             trailerUrl = video.key
+//             break;
+//           }
+//         }
   
-        // Return the trailer URL (or an empty string if no trailer is available)
-        return trailerUrl;
-      })
-      .catch(error => {
-        console.error("Error fetching movie videos:", error);
-        return ""; // Return an empty string if an error occurs
-      });
-  }
+//         // Return the trailer URL (or an empty string if no trailer is available)
+//         return trailerUrl;
+//       })
+//       .catch(error => {
+//         console.error("Error fetching movie videos:", error);
+//         return ""; // Return an empty string if an error occurs
+//       });
+//   }
   
+
+async function getMovieTrailer(movieId) {
+    const response = await fetch(`${baseUrl}/tv/${movieId}/videos?api_key=${apiKey}`)
+    const data = await response.json()
+    const videoResults = data.results.filter(result => result.type === "Trailer")
+    const videoId = videoResults.length > 0 ? videoResults[0].key : null
+    return videoId
+}
   
 
 //movie trailer
