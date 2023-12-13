@@ -1,5 +1,4 @@
-// Replace YOUR_API_KEY with your TMDb API key
-const apiKey = '9dafab561b71196c6c57491f4cd20519';
+const apiKey = process.env.API_KEY
 
 // Get references to the search input and result container elements
 const searchInput = document.getElementById('search-input');
