@@ -1,3 +1,4 @@
+require('dotenv').config()
 const apiKey = process.env.API_KEY
 const baseUrl = "https://api.themoviedb.org/3"
 const imgPath = "https://image.tmdb.org/t/p/original"
