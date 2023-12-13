@@ -1,6 +1,4 @@
-//https://api.themoviedb.org/3/movie/550?api_key=9dafab561b71196c6c57491f4cd20519
-// Set the API key and base URL for the MovieDB API
-const apiKey = "9dafab561b71196c6c57491f4cd20519"
+const apiKey = process.env.API_KEY
 const baseUrl = "https://api.themoviedb.org/3"
 const imgPath = "https://image.tmdb.org/t/p/original"
 let contentType = "tv"
