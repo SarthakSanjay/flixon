@@ -86,53 +86,7 @@ async function buildMoviesSection(list, categoryName) {
     //append div into movies container
     moviesContainer.append(div)
   }
-  
 
-// async function createAndDisplayMovieDetailPopup(title, movieImage, desc , rating , videoUrl ) {
-//     console.log(videoUrl)
-//     const popup = document.createElement("div")
-//     popup.className = "pop-up-div"
-//     popup.innerHTML = `
-//     <div class="popup-content">
-//         <div class='popup-movie-image'>
-//             <img src="${movieImage}" />
-//         </div>
-//         <div class="popup-movie-details">
-//             <button id='closeBtn'>x</button>
-//             <h1 class="movie-title">${title}</h1>
-//             <p class="desc">${desc}</p>
-//             <div id="btnAndRating">
-//              <button id="watchTrailerBtn" class="watchBtn">Watch</button>
-//          <p id='like'><span id="rating">${rating}%</span> Liked This Movie!</p>
-//          </div>
-         
-         
-//          </div>
-//         </div>
-//     </div>
-//     `
-//     disableScroll()
-//     document.body.appendChild(popup)
-//     const closeBtn = document.getElementById('closeBtn')
-//     closeBtn.addEventListener('click', () => {
-//         document.body.removeChild(popup)
-//         console.log("close button clicked")
-//         enableScroll()
-//     })
-
-//     document.getElementById("watchTrailerBtn").addEventListener("click" ,function () {
-//         console.log("clicked");
-//         console.log(getMovieTrailer(videoUrl));
-//         const videoDiv = document.createElement('div')
-//         videoDiv.id = 'video_div'
-//         videoDiv.innerHTML = `
-//         <iframe width="560" height="315" src="https://www.youtube.com/embed/${getMovieTrailer(videoUrl)}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-//         `
-//         popup.appendChild(videoDiv)
-//       })
-   
-    
-// }
 
 async function createAndDisplayMovieDetailPopup(title, movieImage, desc, rating, videoUrl) {
     console.log(videoUrl)
@@ -248,36 +202,6 @@ function fetchTrendingMovies() {
         })
     })
 }
-//movie trailer
-
-// function getMovieTrailer(movieId) {
-//     // Construct the API request URL to fetch the videos for the specified movie
-//     const url = `https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${apiKey}`;
-  
-//     // Make the API request and parse the response as JSON
-//     return fetch(url)
-//       .then(response => response.json())
-//       .then(data => {
-//         // Extract the trailer URL from the response (if available)
-//         let trailerUrl = "";
-//         for (let video of data.results) {
-//           if (video.type === "Trailer") {
-//             // trailerUrl = `https://www.youtube.com/watch?v=${video.key}`;
-//             // // console.log(trailerUrl)
-//             // console.log(video.key);
-//             trailerUrl = video.key
-//             break;
-//           }
-//         }
-  
-//         // Return the trailer URL (or an empty string if no trailer is available)
-//         return trailerUrl;
-//       })
-//       .catch(error => {
-//         console.error("Error fetching movie videos:", error);
-//         return ""; // Return an empty string if an error occurs
-//       });
-//   }
   
 
 async function getMovieTrailer(movieId) {
